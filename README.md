@@ -139,7 +139,7 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE)
 
 **Julián Lasso**
 - GitHub: [@LassoJulian](https://github.com/LassoJulian)
-- Email: lasso.julian@example.com
+- Email: lasso.julian@correounivalle.edu.co
 
 ## 🙏 Agradecimientos
 
