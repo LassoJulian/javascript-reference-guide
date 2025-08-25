@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Reference Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Botón de toggle de tema -->
+        <button class="theme-toggle" id="themeToggle" title="Cambiar a modo claro">☀️</button>
+        
+        <header>
+            <h1>JavaScript Reference Guide</h1>
+            <div class="author">Por: Julián Lasso</div>
+            <p>Documentación con ejemplos prácticos de JavaScript</p>
+        </header>
+
+        <nav class="nav">
+            <h3>📚 Índice de Contenidos</h3>
+            <ul>
+                <li><a href="#consola">1. Consola y Ejecución</a></li>
+                <li><a href="#variables">2. Variables y Tipado</a></li>
+                <li><a href="#scope">2.1 Scope de Variables</a></li>
+                <li><a href="#operadores">3. Operadores y Coerción</a></li>
+                <li><a href="#control">4. Control de Flujo</a></li>
+                <li><a href="#arrays">5. Arrays y Destructuring</a></li>
+                <li><a href="#objetos">6. Objetos, Sets y Maps</a></li>
+                <li><a href="#bucles">7. Bucles</a></li>
+                <li><a href="#errores">8. Manejo de Errores</a></li>
+                <li><a href="#funciones">9. Funciones y Scope</a></li>
+                <li><a href="#metodos-array">10. Métodos de Arrays</a></li>
+                <li><a href="#promesas">11. Promesas</a></li>
+                <li><a href="#destructuring-avanzado">5.1 Destructuring Avanzado</a></li>
+            </ul>
+        </nav>
+
+        <main>
+        <section id="consola" class="section">
+            <h2>Js Reference Guide.</h2>
+            <div class="description">
+                La consola es fundamental para debugging y testing de código JavaScript.
+            </div>
+
+        <section id="consola" class="section">
+            <h2>1. Consola y Ejecución de Código</h2>
+            <div class="description">
+                La consola es una herramienta fundamental para debugging y visualización de resultados en JavaScript.
+            </div>
+            
+            <div class="code-block">
+console.log("=== 1. Consola ===");
+console.log("Hola, JavaScript!");
+            </div>
+            
+            <button class="execute-btn" onclick="executeConsoleExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="console-output">
+=== 1. Consola ===
+Hola, JavaScript!
+            </div>
+        </section>
+
+        <section id="variables" class="section">
+            <h2>2. Variables y Tipado</h2>
+            <div class="description">
+                JavaScript es un lenguaje de <strong>tipado débil y dinámico</strong>. Esto significa que:
+                <ul>
+                    <li>Los valores asignados pueden ser reasignados después</li>
+                    <li>No se debe declarar su tipo explícitamente al inicio como en otros lenguajes</li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+let x = 5;        // Variable mutable (puede cambiar)
+const y = "texto"; // Constante inmutable (no puede cambiar)
+var z = true;     // Variable con scope de función (evitar)
+
+// Ejemplos de mutabilidad
+x = 10; // ✅ Permitido con let
+console.log("x modificado:", x);
+
+// y = "nuevo texto"; // ❌ Error! const no puede reasignarse
+
+// Const con objetos y arrays (el contenido SÍ puede cambiar)
+const persona = { nombre: "Ana", edad: 25 };
+persona.edad = 26; // ✅ Permitido, modificamos el contenido
+console.log("Persona:", persona);
+
+const lista = [1, 2, 3];
+lista.push(4); // ✅ Permitido, modificamos el contenido
+console.log("Lista:", lista);
+            </div>
+            
+            <button class="execute-btn" onclick="executeVariablesExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="variables-output">
+Variables declaradas: x=5, y="texto", z=true
+            </div>
+            
+            <div class="tip">
+                Usa <span class="highlight">let</span> para variables que cambiarán y <span class="highlight">const</span> para valores constantes. Evita <span class="highlight">var</span> en código moderno.
+            </div>
+        </section>
+
+        <section id="scope" class="section">
+            <h2>2.1 Scope de Variables</h2>
+            <div class="description">
+                El <strong>scope block</strong> se refiere a la visibilidad de las variables. Las variables declaradas con <span class="highlight">let</span> o <span class="highlight">const</span> no son accesibles desde afuera de su bloque.
+            </div>
+            
+            <div class="code-block">
+let x = 5;
+
+if (x > 0) {
+    let x = 10; // block-scoped
+    console.log("Dentro del bloque:", x); // 10
+}
+console.log("Fuera del bloque:", x); // 5
+
+// Ejemplo con var (scope global)
+if (true) {
+    var globalVar = "Soy global";
+    let blockVar = "Soy de bloque";
+}
+console.log("globalVar:", globalVar); // Accesible
+// console.log("blockVar:", blockVar); // Error!
+            </div>
+            
+            <button class="execute-btn" onclick="executeScopeExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="scope-output">
+Dentro del bloque: 10
+Fuera del bloque: 5
+globalVar: Soy global
+blockVar causaría error (no accesible)
+            </div>
+            
+            <div class="warning">
+                <span class="highlight">var</span> es accesible de manera global, lo que puede causar problemas inesperados.
+            </div>
+        </section>
+
+        <section id="operadores" class="section">
+            <h2>3. Operadores y Coerción</h2>
+            <div class="description">
+                JavaScript realiza coerción automática de tipos en las operaciones, lo que puede generar resultados inesperados.
+            </div>
+            
+            <div class="code-block">
+// Coerción automática de tipos
+console.log("=== Coerción de Tipos ===");
+console.log('1 + "2" =', 1 + "2");     // "12" (concatenación)
+console.log('2 * "3" =', 2 * "3");     // 6 (conversión a número)
+console.log('"5" - 2 =', "5" - 2);     // 3 (conversión a número)
+console.log('true + 1 =', true + 1);   // 2 (true = 1)
+console.log('false + 1 =', false + 1); // 1 (false = 0)
+
+// Comparaciones
+console.log("=== Comparaciones ===");
+console.log('2 == "2" =', 2 == "2");    // true (comparación con coerción)
+console.log('2 === "2" =', 2 === "2");  // false (comparación estricta)
+console.log('null == undefined =', null == undefined);   // true
+console.log('null === undefined =', null === undefined); // false
+
+// Operadores lógicos
+console.log("=== Operadores Lógicos ===");
+console.log('true && false =', true && false);   // false
+console.log('true || false =', true || false);   // true
+console.log('!true =', !true);                   // false
+
+// Valores falsy y truthy
+console.log("=== Falsy vs Truthy ===");
+console.log('Boolean("") =', Boolean(""));       // false
+console.log('Boolean("hola") =', Boolean("hola")); // true
+console.log('Boolean(0) =', Boolean(0));         // false
+console.log('Boolean(42) =', Boolean(42));       // true
+            </div>
+            
+            <button class="execute-btn" onclick="executeOperatorsExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="operators-output">
+1 + "2" = "12"
+2 * "3" = 6
+"5" - 2 = 3
+2 == "2" = true
+2 === "2" = false
+            </div>
+            
+            <div class="tip">
+                Usa siempre <span class="highlight">===</span> para comparaciones estrictas sin coerción de tipos.
+            </div>
+        </section>
+
+        <section id="control" class="section">
+            <h2>4. Control de Flujo</h2>
+            <div class="description">
+                Estructuras condicionales para controlar el flujo de ejecución del programa.
+            </div>
+            
+            <h3>if...else</h3>
+            <div class="code-block">
+const color = "rojo";
+const edad = 18;
+
+if (color === "rojo") {
+    console.log("Color es rojo");
+} else if (color === "azul") {
+    console.log("Color es azul");
+} else {
+    console.log("Otro color");
+}
+
+// Condicional con múltiples condiciones
+if (edad >= 18 && color === "rojo") {
+    console.log("Mayor de edad con color rojo");
+}
+            </div>
+            
+            <h3>switch</h3>
+            <div class="code-block">
+switch (color) {
+    case "rojo":
+        console.log("También rojo en switch");
+        break;
+    case "azul":
+        console.log("Es azul");
+        break;
+    case "verde":
+        console.log("Es verde");
+        break;
+    default:
+        console.log("No es rojo, azul ni verde");
+}
+            </div>
+            
+            <h3>Operador Ternario</h3>
+            <div class="code-block">
+const mensaje = edad >= 18 ? "Mayor de edad" : "Menor de edad";
+console.log("Mensaje:", mensaje);
+
+// Ternario anidado
+const categoria = edad < 13 ? "niño" : 
+                  edad < 18 ? "adolescente" : 
+                  edad < 65 ? "adulto" : "senior";
+console.log("Categoría:", categoria);
+            </div>
+            
+            <button class="execute-btn" onclick="executeControlFlowExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="control-flow-output">
+Color es rojo
+Mayor de edad con color rojo
+También rojo en switch
+Mensaje: Mayor de edad
+Categoría: adulto
+            </div>
+        </section>
+
+        <section id="arrays" class="section">
+            <h2>5. Arrays, Destructuración y Spread</h2>
+            <div class="description">
+                Trabajando con arrays y las nuevas sintaxis de ES6+ para manipulación eficiente de datos.
+            </div>
+            
+            <div class="code-block">
+const arr = [1, 2, 3];
+const [a, b, c] = arr;        // Destructuración
+const arr2 = [...arr, 4, 5];  // Spread operator
+
+console.log("a:", a, "b:", b, "c:", c);
+console.log("arr2:", arr2);
+            </div>
+            
+            <div class="output">
+a: 1 b: 2 c: 3
+arr2: [1, 2, 3, 4, 5]
+            </div>
+        </section>
+
+        <section id="objetos" class="section">
+            <h2>6. Objetos, Sets y Maps</h2>
+            <div class="description">
+                Estructuras de datos fundamentales en JavaScript para organizar información.
+            </div>
+            
+            <div class="code-block">
+// Objetos
+const obj = { 
+    nombre: "Ana", 
+    edad: 25,
+    saludar: function() {
+        return `Hola, soy ${this.nombre}`;
+    }
+};
+console.log("Objeto:", obj);
+console.log("Saludo:", obj.saludar());
+
+// Sets - elimina duplicados automáticamente
+const set = new Set([1, 2, 2, 3, 3, 4]); 
+console.log("Set:", set);
+console.log("Tamaño del Set:", set.size);
+
+// Operaciones con Set
+set.add(5);
+set.delete(1);
+console.log("Set modificado:", set);
+console.log("¿Contiene 3?", set.has(3));
+
+// Maps - pares clave-valor
+const map = new Map([
+    ["nombre", "Carlos"],
+    ["edad", 30],
+    ["profesion", "Desarrollador"]
+]);
+console.log("Map:", map);
+console.log("Nombre:", map.get("nombre"));
+
+// Operaciones con Map
+map.set("ciudad", "Madrid");
+console.log("Map con ciudad:", map);
+console.log("Claves:", [...map.keys()]);
+console.log("Valores:", [...map.values()]);
+            </div>
+            
+            <button class="execute-btn" onclick="executeObjectsExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="objects-output">
+Objeto: {nombre: "Ana", edad: 25, saludar: ƒ}
+Saludo: Hola, soy Ana
+Set: {2, 3, 4, 5}
+Tamaño del Set: 4
+¿Contiene 3? true
+Map: {"nombre" => "Carlos", "edad" => 30, "profesion" => "Desarrollador", "ciudad" => "Madrid"}
+Nombre: Carlos
+Claves: ["nombre", "edad", "profesion", "ciudad"]
+Valores: ["Carlos", 30, "Desarrollador", "Madrid"]
+            </div>
+        </section>
+
+        <section id="bucles" class="section">
+            <h2>7. Bucles</h2>
+            <div class="description">
+                Diferentes formas de iterar y repetir código en JavaScript. Los bucles son fundamentales para procesar arrays y ejecutar código repetitivo.
+            </div>
+            
+            <h3>for tradicional</h3>
+            <div class="code-block">
+for (let i = 0; i < 3; i++) {
+  console.log("for:", i);
+}
+            </div>
+            
+            <h3>for con arrays (i < lista.length)</h3>
+            <div class="code-block">
+const frutas = ["manzana", "banana", "naranja", "uva"];
+
+for (let i = 0; i < frutas.length; i++) {
+  console.log(`Fruta ${i + 1}: ${frutas[i]}`);
+}
+            </div>
+            
+            <h3>while</h3>
+            <div class="code-block">
+let i = 0;
+while (i < 3) {
+  console.log("while:", i);
+  i++;
+}
+            </div>
+            
+            <h3>do...while</h3>
+            <div class="code-block">
+i = 0;
+do {
+  console.log("do...while:", i);
+  i++;
+} while (i < 3);
+            </div>
+            
+            <h3>forEach - Método de Arrays</h3>
+            <div class="description">
+                El método <span class="highlight">forEach</span> es una forma moderna y funcional de iterar arrays. Ejecuta una función para cada elemento del array.
+            </div>
+            <div class="code-block">
+const numeros = [10, 20, 30, 40];
+
+// forEach básico
+numeros.forEach(function(numero) {
+  console.log("Número:", numero);
+});
+
+// forEach con arrow function
+numeros.forEach(numero => console.log("Arrow:", numero));
+
+// forEach con índice
+numeros.forEach((numero, indice) => {
+  console.log(`Posición ${indice}: ${numero}`);
+});
+            </div>
+            
+            <h3>for...of (Iteración moderna)</h3>
+            <div class="code-block">
+const colores = ["rojo", "verde", "azul"];
+
+for (const color of colores) {
+  console.log("Color:", color);
+}
+            </div>
+            
+            <h3>for...in (Propiedades de objetos)</h3>
+            <div class="code-block">
+const persona = { nombre: "Ana", edad: 25, ciudad: "Madrid" };
+
+for (const propiedad in persona) {
+  console.log(`${propiedad}: ${persona[propiedad]}`);
+}
+            </div>
+            
+            <button class="execute-btn" onclick="executeLoopsExample()">Ejecutar todos los bucles</button>
+            
+            <div class="output hidden" id="loops-output">
+=== Bucles Tradicionales ===
+for: 0, for: 1, for: 2
+while: 0, while: 1, while: 2
+do...while: 0, do...while: 1, do...while: 2
+
+=== Bucles con Arrays ===
+Fruta 1: manzana
+Fruta 2: banana
+Fruta 3: naranja
+Fruta 4: uva
+
+=== forEach ===
+Número: 10, Número: 20, Número: 30, Número: 40
+Arrow: 10, Arrow: 20, Arrow: 30, Arrow: 40
+Posición 0: 10, Posición 1: 20, Posición 2: 30, Posición 3: 40
+
+=== for...of ===
+Color: rojo, Color: verde, Color: azul
+
+=== for...in ===
+nombre: Ana, edad: 25, ciudad: Madrid
+            </div>
+            
+            <div class="tip">
+                <strong>Cuándo usar cada bucle:</strong><br>
+                • <span class="highlight">for</span>: Cuando necesitas el índice o control preciso<br>
+                • <span class="highlight">forEach</span>: Para iterar arrays de forma funcional<br>
+                • <span class="highlight">for...of</span>: Para iterar valores de arrays/strings<br>
+                • <span class="highlight">for...in</span>: Para iterar propiedades de objetos<br>
+                • <span class="highlight">while/do...while</span>: Cuando no sabes cuántas iteraciones necesitas
+            </div>
+            
+            <div class="warning">
+                Evita usar <span class="highlight">for...in</span> con arrays. Úsalo solo para objetos. Para arrays, prefiere <span class="highlight">for...of</span> o <span class="highlight">forEach</span>.
+            </div>
+        </section>
+
+        <section id="errores" class="section">
+            <h2>8. Manejo de Errores</h2>
+            <div class="description">
+                Control de errores para crear aplicaciones más robustas y confiables.
+            </div>
+            
+            <div class="code-block">
+// Try-catch básico
+try {
+    throw new Error("Algo salió mal");
+} catch (err) {
+    console.error("Error atrapado:", err.message);
+}
+
+// Try-catch con diferentes tipos de errores
+function dividir(a, b) {
+    try {
+        if (b === 0) {
+            throw new Error("División por cero no permitida");
+        }
+        if (typeof a !== 'number' || typeof b !== 'number') {
+            throw new TypeError("Los argumentos deben ser números");
+        }
+        return a / b;
+    } catch (error) {
+        console.error("Error en división:", error.message);
+        return null;
+    } finally {
+        console.log("Operación de división finalizada");
+    }
+}
+
+// Ejemplos de uso
+console.log("Resultado 1:", dividir(10, 2));
+console.log("Resultado 2:", dividir(10, 0));
+console.log("Resultado 3:", dividir("10", 2));
+
+// Manejo de errores asincrónicos
+async function funcionAsincrona() {
+    try {
+        // Simulación de operación asíncrona
+        await new Promise((resolve, reject) => {
+            setTimeout(() => reject(new Error("Error asíncrono")), 100);
+        });
+    } catch (error) {
+        console.error("Error asíncrono capturado:", error.message);
+    }
+}
+
+funcionAsincrona();
+            </div>
+            
+            <button class="execute-btn" onclick="executeErrorHandlingExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="error-handling-output">
+Error atrapado: Algo salió mal
+Resultado 1: 5
+Operación de división finalizada
+Error en división: División por cero no permitida
+Resultado 2: null
+Operación de división finalizada
+Error en división: Los argumentos deben ser números
+Resultado 3: null
+Operación de división finalizada
+Error asíncrono capturado: Error asíncrono
+            </div>
+            
+            <div class="tip">
+                Siempre maneja los errores que puedan ocurrir para evitar que tu aplicación se rompa inesperadamente. Usa <span class="highlight">finally</span> para código que debe ejecutarse siempre.
+            </div>
+        </section>
+
+        <section id="funciones" class="section">
+            <h2>9. Funciones y Scope</h2>
+            <div class="description">
+                Las funciones son bloques de código reutilizables. El contexto <span class="highlight">this</span> varía según cómo se invoque la función.
+            </div>
+            
+            <div class="code-block">
+// Función tradicional
+function saludar(nombre) {
+    return `Hola, ${nombre}`;
+}
+console.log("Función tradicional:", saludar("Carlos"));
+
+// Arrow function
+const saludarArrow = (nombre) => `Hola desde arrow, ${nombre}`;
+console.log("Arrow function:", saludarArrow("Ana"));
+
+// Función con parámetros por defecto
+function presentar(nombre = "Anónimo", edad = 0) {
+    return `Me llamo ${nombre} y tengo ${edad} años`;
+}
+console.log("Con defaults:", presentar());
+console.log("Con parámetros:", presentar("Luis", 25));
+
+// Objeto con métodos y 'this'
+const persona = {
+    nombre: "Luisa",
+    edad: 30,
+    
+    saludar: function() {
+        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
+    },
+    
+    // Arrow function no conserva 'this'
+    saludarArrow: () => {
+        return `Arrow function, this.nombre es: ${this.nombre}`;
+    },
+    
+    cumplirAnios: function() {
+        this.edad++;
+        return `Ahora tengo ${this.edad} años`;
+    }
+};
+
+console.log("Método normal:", persona.saludar());
+console.log("Arrow en objeto:", persona.saludarArrow());
+console.log("Cumplir años:", persona.cumplirAnios());
+
+// Función de orden superior
+function aplicarOperacion(a, b, operacion) {
+    return operacion(a, b);
+}
+
+const sumar = (x, y) => x + y;
+const multiplicar = (x, y) => x * y;
+
+console.log("Suma:", aplicarOperacion(5, 3, sumar));
+console.log("Multiplicación:", aplicarOperacion(5, 3, multiplicar));
+            </div>
+            
+            <button class="execute-btn" onclick="executeFunctionsExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="functions-output">
+Función tradicional: Hola, Carlos
+Arrow function: Hola desde arrow, Ana
+Con defaults: Me llamo Anónimo y tengo 0 años
+Con parámetros: Me llamo Luis y tengo 25 años
+Método normal: Hola, soy Luisa y tengo 30 años
+Arrow en objeto: Arrow function, this.nombre es: undefined
+Cumplir años: Ahora tengo 31 años
+Suma: 8
+Multiplicación: 15
+            </div>
+        </section>
+
+        <section id="metodos-array" class="section">
+            <h2>10. Métodos de Arrays</h2>
+            <div class="description">
+                Métodos funcionales para transformar y procesar arrays de manera eficiente.
+            </div>
+            
+            <div class="code-block">
+const nums = [1, 2, 3, 4, 5];
+
+// map - Transforma cada elemento
+const dobles = nums.map(n => n * 2);           
+const cuadrados = nums.map(n => n * n);
+console.log("Originales:", nums);
+console.log("Dobles:", dobles);        // [2, 4, 6, 8, 10]
+console.log("Cuadrados:", cuadrados);  // [1, 4, 9, 16, 25]
+
+// filter - Filtra elementos que cumplen condición
+const pares = nums.filter(n => n % 2 === 0);   
+const mayoresATres = nums.filter(n => n > 3);
+console.log("Pares:", pares);          // [2, 4]
+console.log("Mayores a 3:", mayoresATres); // [4, 5]
+
+// reduce - Reduce array a un solo valor
+const suma = nums.reduce((acc, n) => acc + n, 0); 
+const producto = nums.reduce((acc, n) => acc * n, 1);
+const maximo = nums.reduce((max, n) => n > max ? n : max);
+console.log("Suma:", suma);            // 15
+console.log("Producto:", producto);    // 120
+console.log("Máximo:", maximo);        // 5
+
+// Encadenamiento de métodos
+const resultado = nums
+    .filter(n => n > 2)        // [3, 4, 5]
+    .map(n => n * n)           // [9, 16, 25]
+    .reduce((sum, n) => sum + n, 0); // 50
+
+console.log("Encadenado:", resultado); // 50
+
+// find y findIndex
+const encontrado = nums.find(n => n > 3);
+const indice = nums.findIndex(n => n > 3);
+console.log("Encontrado:", encontrado); // 4
+console.log("Índice:", indice);         // 3
+            </div>
+            
+            <button class="execute-btn" onclick="executeArrayMethodsExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="array-methods-output">
+Dobles: [2, 4, 6, 8]
+Pares: [2, 4]
+Suma: 10
+            </div>
+        </section>
+
+        <section id="promesas" class="section">
+            <h2>11. Promesas</h2>
+            <div class="description">
+                Las promesas permiten manejar operaciones asíncronas de manera más limpia que los callbacks.
+            </div>
+            
+            <div class="code-block">
+// Promesa básica
+const promesa = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        const exito = Math.random() > 0.3; // 70% de probabilidad de éxito
+        if (exito) {
+            resolve("¡Operación exitosa!");
+        } else {
+            reject(new Error("Algo falló"));
+        }
+    }, 1000);
+});
+
+// Manejo con .then() y .catch()
+promesa
+    .then(msg => {
+        console.log("Promesa resuelta:", msg);
+        return "Procesando resultado...";
+    })
+    .then(resultado => {
+        console.log("Segundo then:", resultado);
+    })
+    .catch(err => {
+        console.error("Promesa rechazada:", err.message);
+    })
+    .finally(() => {
+        console.log("Promesa finalizada");
+    });
+
+// Async/Await (sintaxis moderna)
+async function manejarPromesaAsync() {
+    try {
+        console.log("Iniciando operación async...");
+        const resultado = await promesa;
+        console.log("Async resultado:", resultado);
+    } catch (error) {
+        console.error("Async error:", error.message);
+    }
+}
+
+// Promise.all - ejecutar múltiples promesas en paralelo
+const promesa1 = Promise.resolve("Primera");
+const promesa2 = Promise.resolve("Segunda");
+const promesa3 = new Promise(resolve => {
+    setTimeout(() => resolve("Tercera"), 500);
+});
+
+Promise.all([promesa1, promesa2, promesa3])
+    .then(resultados => {
+        console.log("Promise.all resultados:", resultados);
+    });
+
+// Promise.race - la primera que se resuelve
+Promise.race([
+    new Promise(resolve => setTimeout(() => resolve("Rápida"), 100)),
+    new Promise(resolve => setTimeout(() => resolve("Lenta"), 300))
+])
+.then(resultado => {
+    console.log("Promise.race ganador:", resultado);
+});
+
+// Ejecutar función async
+manejarPromesaAsync();
+            </div>
+            
+            <button class="execute-btn" onclick="executePromisesExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="promises-output">
+Iniciando operación async...
+Promesa resuelta: ¡Operación exitosa! (o error si falla)
+Segundo then: Procesando resultado...
+Promesa finalizada
+Async resultado: ¡Operación exitosa!
+Promise.all resultados: ["Primera", "Segunda", "Tercera"]
+Promise.race ganador: Rápida
+            </div>
+        </section>
+
+        <section id="destructuring-avanzado" class="section">
+            <h2>5.1 Destructuring Avanzado</h2>
+            <div class="description">
+                El destructuring te permite "desempacar" valores de arrays u objetos en variables individuales con sintaxis avanzada.
+            </div>
+            
+            <h3>Arrays Avanzado</h3>
+            <div class="code-block">
+// Saltos y rest
+const arrA = [10, 20, 30, 40];
+const [firstA, secondA] = arrA;           // 10, 20
+const [, , thirdA] = arrA;                // 30 (saltando dos)
+const [headA, ...tailA] = arrA;           // headA=10, tailA=[20,30,40]
+
+// Valores por defecto
+const arrB = [1, undefined, null];
+const [b1 = 100, b2 = 200, b3 = 300] = arrB;
+
+// Intercambio de variables
+let left = "A", right = "B";
+[right, left] = [left, right];
+            </div>
+            
+            <h3>Objetos Avanzado</h3>
+            <div class="code-block">
+// Renombrado y defaults
+const user1 = { id: 42, name: "Ada Lovelace", active: true };
+const { id: userId, name: fullName, role = "user" } = user1;
+
+// Anidamiento
+const order = {
+  customer: { name: "Ana", address: { city: "Bogotá" } }
+};
+const { 
+  customer: { 
+    name: customerName, 
+    address: { city } 
+  } 
+} = order;
+
+// Rest properties
+const { id, ...restProps } = user1;
+            </div>
+            
+            <div class="tip">
+                El destructuring es especialmente útil en parámetros de funciones y para extraer datos de APIs.
+            </div>
+        </section>
+
+        <script>
+            // ====================================================
+            // TOGGLE DE TEMA DÍA/NOCHE
+            // ====================================================
+            
+            // Obtener el tema guardado o usar 'dark' por defecto (modo nocturno)
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Actualizar el icono del botón según el tema
+            const themeToggle = document.getElementById('themeToggle');
+            function updateThemeIcon() {
+                const theme = document.documentElement.getAttribute('data-theme');
+                themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+                themeToggle.title = theme === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro';
+            }
+            updateThemeIcon();
+            
+            // Event listener para el toggle
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon();
+            });
+
+            // ====================================================
+            // FUNCIONES DE EJECUCIÓN DE CÓDIGO
+            // ====================================================
+            
+            // Función auxiliar para mostrar output
+            function showOutput(elementId) {
+                const output = document.getElementById(elementId);
+                output.classList.remove('hidden');
+                output.classList.add('visible');
+                
+                // Scroll suave al output
+                setTimeout(() => {
+                    output.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+            
+            // 1. Consola
+            function executeConsoleExample() {
+                console.log("=== 1. Consola ===");
+                console.log("Hola, JavaScript!");
+                
+                showOutput('console-output');
+            }
+            
+            // 2. Variables
+            function executeVariablesExample() {
+                let x = 5;
+                const y = "texto";
+                var z = true;
+                
+                // Ejemplos de mutabilidad
+                x = 10;
+                console.log("x modificado:", x);
+                
+                const persona = { nombre: "Ana", edad: 25 };
+                persona.edad = 26;
+                console.log("Persona:", persona);
+                
+                const lista = [1, 2, 3];
+                lista.push(4);
+                console.log("Lista:", lista);
+                
+                console.log("Variables declaradas:");
+                console.log("x =", x, "(let)");
+                console.log("y =", y, "(const)");
+                console.log("z =", z, "(var)");
+                
+                showOutput('variables-output');
+            }
+            
+            // 2.1 Scope
+            function executeScopeExample() {
+                let x = 5;
+                
+                if (x > 0) {
+                    let x = 10;
+                    console.log("Dentro del bloque:", x);
+                }
+                console.log("Fuera del bloque:", x);
+                
+                if (true) {
+                    var globalVar = "Soy global";
+                    let blockVar = "Soy de bloque";
+                }
+                console.log("globalVar:", globalVar);
+                console.log("blockVar causaría error si intentamos accederla aquí");
+                
+                showOutput('scope-output');
+            }
+            
+            // 3. Operadores (actualizada)
+            function executeOperatorsExample() {
+                console.log("=== Operadores y Coerción ===");
+                console.log('1 + "2" =', 1 + "2");
+                console.log('2 * "3" =', 2 * "3");
+                console.log('"5" - 2 =', "5" - 2);
+                console.log('2 == "2" =', 2 == "2");
+                console.log('2 === "2" =', 2 === "2");
+                console.log('true + 1 =', true + 1);
+                console.log('Boolean("") =', Boolean(""));
+                console.log('Boolean("hola") =', Boolean("hola"));
+                
+                showOutput('operators-output');
+            }
+            
+            // 4. Control de Flujo
+            function executeControlFlowExample() {
+                const color = "rojo";
+                const edad = 18;
+                
+                console.log("=== Control de Flujo ===");
+                
+                if (color === "rojo") {
+                    console.log("Color es rojo");
+                } else if (color === "azul") {
+                    console.log("Color es azul");
+                } else {
+                    console.log("Otro color");
+                }
+                
+                if (edad >= 18 && color === "rojo") {
+                    console.log("Mayor de edad con color rojo");
+                }
+                
+                switch (color) {
+                    case "rojo":
+                        console.log("También rojo en switch");
+                        break;
+                    case "azul":
+                        console.log("Es azul");
+                        break;
+                    default:
+                        console.log("No es rojo ni azul");
+                }
+                
+                const mensaje = edad >= 18 ? "Mayor de edad" : "Menor de edad";
+                console.log("Mensaje:", mensaje);
+                
+                const categoria = edad < 13 ? "niño" : 
+                                  edad < 18 ? "adolescente" : 
+                                  edad < 65 ? "adulto" : "senior";
+                console.log("Categoría:", categoria);
+                
+                showOutput('control-flow-output');
+            }
+            
+            // 5. Arrays
+            function executeArraysExample() {
+                console.log("=== Arrays y Destructuring ===");
+                
+                const arr = [1, 2, 3];
+                const [a, b, c] = arr;
+                const arr2 = [...arr, 4, 5];
+                
+                console.log("a:", a, "b:", b, "c:", c);
+                console.log("arr2:", arr2);
+                
+                const numeros = [10, 20, 30, 40, 50];
+                const [primero, segundo, ...resto] = numeros;
+                console.log("Primero:", primero);
+                console.log("Segundo:", segundo);
+                console.log("Resto:", resto);
+                
+                const arr3 = [1, 2];
+                const arr4 = [3, 4];
+                const combinado = [...arr3, ...arr4, 5, 6];
+                console.log("Combinado:", combinado);
+                
+                showOutput('arrays-output');
+            }
+            
+            // 6. Objetos, Sets y Maps
+            function executeObjectsExample() {
+                console.log("=== Objetos, Sets y Maps ===");
+                
+                const obj = { 
+                    nombre: "Ana", 
+                    edad: 25,
+                    saludar: function() {
+                        return `Hola, soy ${this.nombre}`;
+                    }
+                };
+                console.log("Objeto:", obj);
+                console.log("Saludo:", obj.saludar());
+                
+                const set = new Set([1, 2, 2, 3, 3, 4]);
+                console.log("Set:", set);
+                console.log("Tamaño del Set:", set.size);
+                
+                set.add(5);
+                set.delete(1);
+                console.log("Set modificado:", set);
+                console.log("¿Contiene 3?", set.has(3));
+                
+                const map = new Map([
+                    ["nombre", "Carlos"],
+                    ["edad", 30],
+                    ["profesion", "Desarrollador"]
+                ]);
+                console.log("Map:", map);
+                console.log("Nombre:", map.get("nombre"));
+                
+                map.set("ciudad", "Madrid");
+                console.log("Claves:", [...map.keys()]);
+                console.log("Valores:", [...map.values()]);
+                
+                showOutput('objects-output');
+            }
+            
+            // 8. Manejo de Errores
+            function executeErrorHandlingExample() {
+                console.log("=== Manejo de Errores ===");
+                
+                try {
+                    throw new Error("Algo salió mal");
+                } catch (err) {
+                    console.error("Error atrapado:", err.message);
+                }
+                
+                function dividir(a, b) {
+                    try {
+                        if (b === 0) {
+                            throw new Error("División por cero no permitida");
+                        }
+                        if (typeof a !== 'number' || typeof b !== 'number') {
+                            throw new TypeError("Los argumentos deben ser números");
+                        }
+                        return a / b;
+                    } catch (error) {
+                        console.error("Error en división:", error.message);
+                        return null;
+                    } finally {
+                        console.log("Operación de división finalizada");
+                    }
+                }
+                
+                console.log("Resultado 1:", dividir(10, 2));
+                console.log("Resultado 2:", dividir(10, 0));
+                console.log("Resultado 3:", dividir("10", 2));
+                
+                showOutput('error-handling-output');
+            }
+            
+            // 9. Funciones
+            function executeFunctionsExample() {
+                console.log("=== Funciones y Scope ===");
+                
+                function saludar(nombre) {
+                    return `Hola, ${nombre}`;
+                }
+                console.log("Función tradicional:", saludar("Carlos"));
+                
+                const saludarArrow = (nombre) => `Hola desde arrow, ${nombre}`;
+                console.log("Arrow function:", saludarArrow("Ana"));
+                
+                function presentar(nombre = "Anónimo", edad = 0) {
+                    return `Me llamo ${nombre} y tengo ${edad} años`;
+                }
+                console.log("Con defaults:", presentar());
+                console.log("Con parámetros:", presentar("Luis", 25));
+                
+                const persona = {
+                    nombre: "Luisa",
+                    edad: 30,
+                    saludar: function() {
+                        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
+                    },
+                    saludarArrow: () => {
+                        return `Arrow function, this.nombre es: ${this.nombre}`;
+                    },
+                    cumplirAnios: function() {
+                        this.edad++;
+                        return `Ahora tengo ${this.edad} años`;
+                    }
+                };
+                
+                console.log("Método normal:", persona.saludar());
+                console.log("Arrow en objeto:", persona.saludarArrow());
+                console.log("Cumplir años:", persona.cumplirAnios());
+                
+                function aplicarOperacion(a, b, operacion) {
+                    return operacion(a, b);
+                }
+                
+                const sumar = (x, y) => x + y;
+                const multiplicar = (x, y) => x * y;
+                
+                console.log("Suma:", aplicarOperacion(5, 3, sumar));
+                console.log("Multiplicación:", aplicarOperacion(5, 3, multiplicar));
+                
+                showOutput('functions-output');
+            }
+            
+            // 10. Métodos de Arrays (actualizada)
+            function executeArrayMethodsExample() {
+                const nums = [1, 2, 3, 4, 5];
+                
+                console.log("=== Métodos de Arrays ===");
+                console.log("Array original:", nums);
+                
+                const dobles = nums.map(n => n * 2);
+                const cuadrados = nums.map(n => n * n);
+                console.log("Dobles:", dobles);
+                console.log("Cuadrados:", cuadrados);
+                
+                const pares = nums.filter(n => n % 2 === 0);
+                const mayoresATres = nums.filter(n => n > 3);
+                console.log("Pares:", pares);
+                console.log("Mayores a 3:", mayoresATres);
+                
+                const suma = nums.reduce((acc, n) => acc + n, 0);
+                const producto = nums.reduce((acc, n) => acc * n, 1);
+                console.log("Suma:", suma);
+                console.log("Producto:", producto);
+                
+                const resultado = nums
+                    .filter(n => n > 2)
+                    .map(n => n * n)
+                    .reduce((sum, n) => sum + n, 0);
+                console.log("Encadenado:", resultado);
+                
+                showOutput('array-methods-output');
+            }
+            
+            // 11. Promesas
+            function executePromisesExample() {
+                console.log("=== Promesas ===");
+                
+                const promesa = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        const exito = Math.random() > 0.3;
+                        if (exito) {
+                            resolve("¡Operación exitosa!");
+                        } else {
+                            reject(new Error("Algo falló"));
+                        }
+                    }, 500);
+                });
+                
+                promesa
+                    .then(msg => {
+                        console.log("Promesa resuelta:", msg);
+                        return "Procesando resultado...";
+                    })
+                    .then(resultado => {
+                        console.log("Segundo then:", resultado);
+                    })
+                    .catch(err => {
+                        console.error("Promesa rechazada:", err.message);
+                    })
+                    .finally(() => {
+                        console.log("Promesa finalizada");
+                    });
+                
+                // Promise.all
+                const promesa1 = Promise.resolve("Primera");
+                const promesa2 = Promise.resolve("Segunda");
+                const promesa3 = new Promise(resolve => {
+                    setTimeout(() => resolve("Tercera"), 200);
+                });
+                
+                Promise.all([promesa1, promesa2, promesa3])
+                    .then(resultados => {
+                        console.log("Promise.all resultados:", resultados);
+                    });
+                
+                Promise.race([
+                    new Promise(resolve => setTimeout(() => resolve("Rápida"), 100)),
+                    new Promise(resolve => setTimeout(() => resolve("Lenta"), 300))
+                ])
+                .then(resultado => {
+                    console.log("Promise.race ganador:", resultado);
+                });
+                
+                showOutput('promises-output');
+            }
+            
+            // 7. Bucles (nueva función expandida)
+            function executeLoopsExample() {
+                console.log("=== 7. Bucles Completos ===");
+                
+                // Bucles tradicionales
+                console.log("--- Bucles Tradicionales ---");
+                for (let i = 0; i < 3; i++) {
+                    console.log("for:", i);
+                }
+                
+                let j = 0;
+                while (j < 3) {
+                    console.log("while:", j);
+                    j++;
+                }
+                
+                let k = 0;
+                do {
+                    console.log("do...while:", k);
+                    k++;
+                } while (k < 3);
+                
+                // Bucles con arrays
+                console.log("--- Bucles con Arrays ---");
+                const frutas = ["manzana", "banana", "naranja", "uva"];
+                
+                for (let i = 0; i < frutas.length; i++) {
+                    console.log(`Fruta ${i + 1}: ${frutas[i]}`);
+                }
+                
+                // forEach ejemplos
+                console.log("--- forEach ---");
+                const numeros = [10, 20, 30, 40];
+                
+                numeros.forEach(function(numero) {
+                    console.log("Número:", numero);
+                });
+                
+                numeros.forEach(numero => console.log("Arrow:", numero));
+                
+                numeros.forEach((numero, indice) => {
+                    console.log(`Posición ${indice}: ${numero}`);
+                });
+                
+                // for...of
+                console.log("--- for...of ---");
+                const colores = ["rojo", "verde", "azul"];
+                for (const color of colores) {
+                    console.log("Color:", color);
+                }
+                
+                // for...in
+                console.log("--- for...in ---");
+                const persona = { nombre: "Ana", edad: 25, ciudad: "Madrid" };
+                for (const propiedad in persona) {
+                    console.log(`${propiedad}: ${persona[propiedad]}`);
+                }
+                
+                showOutput('loops-output');
+            }
+
+            // ====================================================
+            // NAVEGACIÓN SUAVE Y SECCIÓN ACTIVA
+            // ====================================================
+            
+            // Smooth scroll para los enlaces de navegación
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Destacar la sección activa en el menú
+            function updateActiveSection() {
+                const sections = document.querySelectorAll('.section');
+                const navLinks = document.querySelectorAll('.nav a');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveSection);
+            
+            // ====================================================
+            // MENSAJE DE BIENVENIDA
+            // ====================================================
+            
+            console.log("🚀 JavaScript Reference Guide cargado correctamente!");
+            console.log("💡 Usa los botones 'Ejecutar código' para ver ejemplos interactivos");
+            console.log("🌙 Usa el botón en la esquina superior derecha para cambiar el tema");
+        </script>
+    </div>
+</body>
+</html>
