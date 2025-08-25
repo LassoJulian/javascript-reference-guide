@@ -27,6 +27,7 @@
                 <li><a href="#control">4. Control de Flujo</a></li>
                 <li><a href="#arrays">5. Arrays y Destructuring</a></li>
                 <li><a href="#objetos">6. Objetos, Sets y Maps</a></li>
+                <li><a href="#this">6.1 La Palabra Clave "this"</a></li>
                 <li><a href="#bucles">7. Bucles</a></li>
                 <li><a href="#errores">8. Manejo de Errores</a></li>
                 <li><a href="#funciones">9. Funciones y Scope</a></li>
@@ -336,6 +337,133 @@ Map: {"nombre" => "Carlos", "edad" => 30, "profesion" => "Desarrollador", "ciuda
 Nombre: Carlos
 Claves: ["nombre", "edad", "profesion", "ciudad"]
 Valores: ["Carlos", 30, "Desarrollador", "Madrid"]
+            </div>
+        </section>
+
+        <section id="this" class="section">
+            <h2>6.1 La Palabra Clave "this"</h2>
+            <div class="description">
+                La palabra clave <code>this</code> es un puntero que hace referencia al contexto de ejecución actual. Su valor depende de cómo y dónde se invoque la función.
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> El valor de <code>this</code> cambia dependiendo del contexto:
+                <ul>
+                    <li><strong>En métodos de objetos:</strong> apunta al objeto</li>
+                    <li><strong>En funciones normales:</strong> apunta al objeto global (window/global)</li>
+                    <li><strong>En arrow functions:</strong> hereda el <code>this</code> del contexto padre</li>
+                    <li><strong>En modo estricto:</strong> puede ser <code>undefined</code></li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+// 1. this en métodos de objetos
+const persona = {
+    nombre: "María",
+    edad: 28,
+    
+    // Método tradicional - this apunta al objeto persona
+    saludar: function() {
+        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
+    },
+    
+    // Arrow function - this NO apunta al objeto persona
+    saludarArrow: () => {
+        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`; // undefined
+    },
+    
+    // Método con this anidado
+    mostrarInfo: function() {
+        console.log("Contexto externo this.nombre:", this.nombre);
+        
+        // Función anidada tradicional - this cambia de contexto
+        function funcionInterna() {
+            console.log("Función interna this.nombre:", this.nombre); // undefined
+        }
+        
+        // Arrow function anidada - mantiene el this del contexto padre
+        const arrowInterna = () => {
+            console.log("Arrow interna this.nombre:", this.nombre); // "María"
+        };
+        
+        funcionInterna();
+        arrowInterna();
+    }
+};
+
+// 2. this en diferentes contextos
+console.log("=== Métodos de objeto ===");
+console.log(persona.saludar()); // "María"
+console.log(persona.saludarArrow()); // undefined
+
+console.log("\n=== This anidado ===");
+persona.mostrarInfo();
+
+// 3. this con call, apply y bind
+const otraPersona = {
+    nombre: "Carlos",
+    edad: 35
+};
+
+// Cambiar el contexto de this con call
+console.log("\n=== Cambiar contexto con call ===");
+console.log(persona.saludar.call(otraPersona)); // "Carlos"
+
+// 4. this en constructores y clases
+console.log("\n=== This en constructores ===");
+
+function Vehiculo(marca, modelo) {
+    this.marca = marca;
+    this.modelo = modelo;
+    this.acelerar = function() {
+        return `El ${this.marca} ${this.modelo} está acelerando`;
+    };
+}
+
+const coche = new Vehiculo("Toyota", "Corolla");
+console.log(coche.acelerar());
+
+// 5. this en eventos (simulado)
+const boton = {
+    texto: "Click me",
+    
+    // Método tradicional para eventos
+    manejarClick: function() {
+        console.log(`Botón clickeado: ${this.texto}`);
+    },
+    
+    // Arrow function NO funciona bien para eventos
+    manejarClickArrow: () => {
+        console.log(`Botón clickeado: ${this.texto}`); // undefined
+    }
+};
+
+console.log("\n=== This en eventos simulados ===");
+boton.manejarClick(); // "Click me"
+boton.manejarClickArrow(); // undefined
+            </div>
+            
+            <button class="execute-btn" onclick="executeThisExample()">Ejecutar código</button>
+            
+            <div class="output hidden" id="this-output">
+=== Métodos de objeto ===
+Hola, soy María y tengo 28 años
+Hola, soy undefined y tengo undefined años
+
+=== This anidado ===
+Contexto externo this.nombre: María
+Función interna this.nombre: undefined
+Arrow interna this.nombre: María
+
+=== Cambiar contexto con call ===
+Hola, soy Carlos y tengo 35 años
+
+=== This en constructores ===
+El Toyota Corolla está acelerando
+
+=== This en eventos simulados ===
+Botón clickeado: Click me
+Botón clickeado: undefined
             </div>
         </section>
 
@@ -1007,6 +1135,84 @@ const { id, ...restProps } = user1;
                 console.log("Valores:", [...map.values()]);
                 
                 showOutput('objects-output');
+            }
+            
+            // 6.1 La palabra clave "this"
+            function executeThisExample() {
+                console.log("=== Métodos de objeto ===");
+                
+                const persona = {
+                    nombre: "María",
+                    edad: 28,
+                    
+                    saludar: function() {
+                        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
+                    },
+                    
+                    saludarArrow: () => {
+                        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
+                    },
+                    
+                    mostrarInfo: function() {
+                        console.log("Contexto externo this.nombre:", this.nombre);
+                        
+                        function funcionInterna() {
+                            console.log("Función interna this.nombre:", this.nombre);
+                        }
+                        
+                        const arrowInterna = () => {
+                            console.log("Arrow interna this.nombre:", this.nombre);
+                        };
+                        
+                        funcionInterna();
+                        arrowInterna();
+                    }
+                };
+                
+                console.log(persona.saludar());
+                console.log(persona.saludarArrow());
+                
+                console.log("\n=== This anidado ===");
+                persona.mostrarInfo();
+                
+                const otraPersona = {
+                    nombre: "Carlos",
+                    edad: 35
+                };
+                
+                console.log("\n=== Cambiar contexto con call ===");
+                console.log(persona.saludar.call(otraPersona));
+                
+                console.log("\n=== This en constructores ===");
+                
+                function Vehiculo(marca, modelo) {
+                    this.marca = marca;
+                    this.modelo = modelo;
+                    this.acelerar = function() {
+                        return `El ${this.marca} ${this.modelo} está acelerando`;
+                    };
+                }
+                
+                const coche = new Vehiculo("Toyota", "Corolla");
+                console.log(coche.acelerar());
+                
+                const boton = {
+                    texto: "Click me",
+                    
+                    manejarClick: function() {
+                        console.log(`Botón clickeado: ${this.texto}`);
+                    },
+                    
+                    manejarClickArrow: () => {
+                        console.log(`Botón clickeado: ${this.texto}`);
+                    }
+                };
+                
+                console.log("\n=== This en eventos simulados ===");
+                boton.manejarClick();
+                boton.manejarClickArrow();
+                
+                showOutput('this-output');
             }
             
             // 8. Manejo de Errores

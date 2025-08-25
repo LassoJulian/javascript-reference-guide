@@ -1,4 +1,6 @@
-# 📚 JavaScript Reference Guide
+# 📚 JavaScript Reference### **📚 Contenido Completo**
+- **14 secciones** cubriendo todos los conceptos fundamentales de JavaScript
+- **Ejemplos prácticos** con código del mundo realide
 
 Una guía de referencia interactiva y completa de JavaScript con ejemplos ejecutables en tiempo real. Perfecta para aprender, repasar conceptos y tener como material de consulta rápida.
 
@@ -14,7 +16,7 @@ Puedes ver la guía en funcionamiento aquí: [JavaScript Reference Guide](https:
 ## ✨ Características
 
 ### 🎯 **Interactividad Total**
-- **12 botones ejecutables** que permiten correr código JavaScript en tiempo real
+- **13 botones ejecutables** que permiten correr código JavaScript en tiempo real
 - **Resultados en consola** del navegador para debugging práctico
 - **Outputs visuales** en la página con animaciones suaves
 
@@ -49,6 +51,7 @@ Puedes ver la guía en funcionamiento aquí: [JavaScript Reference Guide](https:
 ### **Estructuras de Datos**
 5. **Arrays y Destructuring** - Sintaxis ES6+ y spread operator
 6. **Objetos, Sets y Maps** - Estructuras de datos modernas
+6.1 **La Palabra Clave "this"** - Contextos de ejecución y punteros
 10. **Métodos de Arrays** - `map`, `filter`, `reduce`, encadenamiento
 
 ### **Funciones y Programación**
@@ -167,8 +170,8 @@ code .
 
 ## 📊 Estadísticas del Proyecto
 
-- **13 secciones** de contenido
-- **12 ejemplos ejecutables** interactivos
+- **14 secciones** de contenido
+- **13 ejemplos ejecutables** interactivos
 - **200+ líneas** de código JavaScript ejemplificado
 - **Responsive design** para móviles y desktop
 - **Modo nocturno** para mejor experiencia
