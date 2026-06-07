@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Demo Button</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #1a1a1a;
+      color: #76b900;
+      padding: 2rem;
+      margin: 0;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      background: #242424;
+      border: 1px solid #76b900;
+      color: #76b900;
+      cursor: pointer;
+      font-family: monospace;
+    }
+    button:hover {
+      background: #76b900;
+      color: #1a1a1a;
+    }
+    #output {
+      background: #141414;
+      padding: 1rem;
+      margin-top: 1rem;
+      border: 1px solid #76b900;
+      min-height: 6rem;
+      white-space: pre-wrap;
+    }
+    .log {
+      background: #242424;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 3px solid #76b900;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test: Demo Button System</h1>
+  
+  <div class="log">
+    <h3>Paso 1: Verifica que los botones se creen</h3>
+    <button type="button" data-demo="fundamentos">Demo Fundamentos</button>
+    <button type="button" data-demo="closures">Demo Closures</button>
+  </div>
+
+  <div class="log">
+    <h3>Paso 2: Output de la demo</h3>
+    <pre id="output">Haz click en un botón para ver el resultado aquí.</pre>
+  </div>
+
+  <div class="log">
+    <h3>Paso 3: Console logs</h3>
+    <pre id="console-log"></pre>
+  </div>
+
+  <script>
+    // Capturar console.log
+    const consoleLogs = [];
+    const originalLog = console.log;
+    console.log = function(...args) {
+      originalLog(...args);
+      consoleLogs.push(args.join(' '));
+      document.getElementById('console-log').textContent = consoleLogs.join('\n');
+    };
+
+    console.log("=== INICIANDO TEST ===");
+
+    const output = document.getElementById("output");
+    const demoButtons = Array.from(document.querySelectorAll("[data-demo]"));
+
+    console.log(`Elemento output encontrado: ${!!output}`);
+    console.log(`Botones encontrados: ${demoButtons.length}`);
+
+    const demos = {
+      fundamentos() {
+        return [
+          "Tipos y coerción",
+          `typeof "120" -> ${typeof "120"}`,
+          `Number("120") * 3 -> ${Number("120") * 3}`,
+        ];
+      },
+      closures() {
+        let count = 0;
+        return [
+          "Closures",
+          `count inicial -> ${count}`,
+          `count++ -> ${++count}`,
+        ];
+      },
+    };
+
+    function writeOutput(lines) {
+      output.textContent = Array.isArray(lines) ? lines.join("\n") : String(lines);
+      console.log("Output actualizado");
+    }
+
+    function runDemo(name) {
+      console.log(`runDemo("${name}") llamado`);
+      const demo = demos[name];
+      if (!demo) {
+        console.warn(`Demo no encontrada: ${name}`);
+        return;
+      }
+      writeOutput(demo());
+    }
+
+    console.log("Registrando listeners...");
+    demoButtons.forEach((button) => {
+      console.log(`Agregando listener a botón: ${button.dataset.demo}`);
+      button.addEventListener("click", () => {
+        console.log(`Botón clickeado: ${button.dataset.demo}`);
+        runDemo(button.dataset.demo);
+      });
+    });
+
+    console.log("=== TEST LISTO ===");
+  </script>
+</body>
+</html>

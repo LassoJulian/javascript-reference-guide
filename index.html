@@ -1,1500 +1,770 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Reference Guide</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guía interactiva de JavaScript con enfoque práctico, arquitectura limpia y estilo Deep Learning High-Tech.">
+  <title>JavaScript Reference Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Botón de toggle de tema -->
-        <button class="theme-toggle" id="themeToggle" title="Cambiar a modo claro">☀️</button>
-        
-        <header>
-            <h1>JavaScript Reference Guide</h1>
-            <div class="author">Por: Julián Lasso</div>
-            <p>Documentación con ejemplos prácticos de JavaScript</p>
-        </header>
+  <div class="page-shell">
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
 
-        <nav class="nav">
-            <h3>📚 Índice de Contenidos</h3>
+    <header class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">JavaScript Reference Guide</p>
+        <h1>Guía completa de JavaScript orientada a casos reales.</h1>
+        <p class="lead">
+          Un recorrido práctico por fundamentos, asincronía, DOM, APIs del navegador y patrones avanzados.
+          Cada sección prioriza ejemplos ejecutables, errores comunes y uso en producción.
+        </p>
+        <div class="hero-meta">
+          <span>Vanilla JavaScript</span>
+          <span>Open source</span>
+          <span>Dark only</span>
+          <span>Design system Deep Learning High-Tech</span>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#fundamentos">Empezar</a>
+          <a class="button button-ghost" href="#roadmap">Ver ruta</a>
+        </div>
+      </div>
+
+      <aside class="hero-visual card-depth" aria-label="Visualización técnica">
+        <div class="mesh-grid"></div>
+        <div class="signal signal-one"></div>
+        <div class="signal signal-two"></div>
+        <div class="signal signal-three"></div>
+        <div class="visual-stack">
+          <div class="stat-panel">
+            <span class="stat-label">Cobertura</span>
+            <strong>Fundamentos + avanzado</strong>
+          </div>
+          <div class="stat-panel">
+            <span class="stat-label">Formato</span>
+            <strong>Ejemplo, caso de uso, ejercicio</strong>
+          </div>
+          <div class="stat-panel">
+            <span class="stat-label">Focus</span>
+            <strong>Lectura técnica + práctica</strong>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <nav class="section-nav card-surface" aria-label="Índice de contenidos">
+      <a href="#fundamentos">Fundamentos</a>
+      <a href="#flujo">Control de flujo</a>
+      <a href="#colecciones">Colecciones</a>
+      <a href="#objetos">Objetos y this</a>
+      <a href="#funciones">Funciones y closures</a>
+      <a href="#errores">Errores</a>
+      <a href="#oop">OOP</a>
+      <a href="#asincronia">Asincronía</a>
+      <a href="#modulos">Módulos</a>
+      <a href="#dom">DOM y eventos</a>
+      <a href="#practice">Práctica UI</a>
+      <a href="#apis">APIs del navegador</a>
+      <a href="#avanzado">Avanzado</a>
+      <a href="#testing">Testing y performance</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+
+    <main class="content-grid">
+      <section class="section card-surface" id="fundamentos">
+        <div class="section-head">
+          <p class="section-kicker">01</p>
+          <h2>Fundamentos</h2>
+        </div>
+        <p class="section-lead">Variables, tipos, coerción y operadores. Una variable es un nombre que referencia un valor; la coerción es la conversión automática de tipos.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Qué cubre</h3>
             <ul>
-                <li><a href="#consola">1. Consola y Ejecución</a></li>
-                <li><a href="#variables">2. Variables y Tipado</a></li>
-                <li><a href="#scope">2.1 Scope de Variables</a></li>
-                <li><a href="#operadores">3. Operadores y Coerción</a></li>
-                <li><a href="#control">4. Control de Flujo</a></li>
-                <li><a href="#arrays">5. Arrays y Destructuring</a></li>
-                <li><a href="#objetos">6. Objetos, Sets y Maps</a></li>
-                <li><a href="#this">6.1 La Palabra Clave "this"</a></li>
-                <li><a href="#bucles">7. Bucles</a></li>
-                <li><a href="#errores">8. Manejo de Errores</a></li>
-                <li><a href="#funciones">9. Funciones y Scope</a></li>
-                <li><a href="#metodos-array">10. Métodos de Arrays</a></li>
-                <li><a href="#promesas">11. Promesas</a></li>
-                <li><a href="#destructuring-avanzado">5.1 Destructuring Avanzado</a></li>
+              <li><code>let</code>, <code>const</code> y alcance de bloque</li>
+              <li>Tipos primitivos y objetos</li>
+              <li>Coerción explícita vs implícita</li>
+              <li>Comparación estricta y truthy/falsy</li>
             </ul>
-        </nav>
+          </article>
+          <article class="info-block">
+            <h3>Caso de uso</h3>
+            <p>Validar formularios, normalizar datos de API y evitar bugs por conversiones implícitas.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>const price = "120";
+const quantity = 3;
 
-        <main>
-        <section id="consola" class="section">
-            <h2>Js Reference Guide.</h2>
-            <div class="description">
-                La consola es fundamental para debugging y testing de código JavaScript.
-            </div>
+const total = Number(price) * quantity;
+const label = `Total: ${total}`;
 
-        <section id="consola" class="section">
-            <h2>1. Consola y Ejecución de Código</h2>
-            <div class="description">
-                La consola es una herramienta fundamental para debugging y visualización de resultados en JavaScript.
-            </div>
-            
-            <div class="code-block">
-console.log("=== 1. Consola ===");
-console.log("Hola, JavaScript!");
-            </div>
-            
-            <button class="execute-btn" onclick="executeConsoleExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="console-output">
-=== 1. Consola ===
-Hola, JavaScript!
-            </div>
-        </section>
+console.log(typeof price);
+console.log(total);
+console.log(Boolean("") === false);</code></pre>
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="fundamentos">Ejecutar demo</button>
+          <p class="microcopy">Ejercicio: convierte un valor de texto en número y maneja el caso inválido.</p>
+        </div>
+      </section>
 
-        <section id="variables" class="section">
-            <h2>2. Variables y Tipado</h2>
-            <div class="description">
-                JavaScript es un lenguaje de <strong>tipado débil y dinámico</strong>. Esto significa que:
-                <ul>
-                    <li>Los valores asignados pueden ser reasignados después</li>
-                    <li>No se debe declarar su tipo explícitamente al inicio como en otros lenguajes</li>
-                </ul>
-            </div>
-            
-            <div class="code-block">
-let x = 5;        // Variable mutable (puede cambiar)
-const y = "texto"; // Constante inmutable (no puede cambiar)
-var z = true;     // Variable con scope de función (evitar)
+      <section class="section card-surface" id="flujo">
+        <div class="section-head">
+          <p class="section-kicker">02</p>
+          <h2>Control de flujo y bucles</h2>
+        </div>
+        <p class="section-lead">El control de flujo define el orden de ejecución. Sirve para decidir qué camino sigue el programa y cuántas veces repite una acción.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>if</code>, <code>switch</code>, ternario y guard clauses</li>
+              <li><code>for</code>, <code>for...of</code>, <code>while</code>, <code>forEach</code></li>
+              <li><code>break</code> y <code>continue</code></li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Recomendación</h3>
+            <p>Usa <code>for...of</code> cuando procesas valores y <code>forEach</code> cuando quieres expresar intención funcional sobre un array.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>const score = 87;
+const tier = score &gt;= 90 ? "A" : score &gt;= 70 ? "B" : "C";
 
-// Ejemplos de mutabilidad
-x = 10; // ✅ Permitido con let
-console.log("x modificado:", x);
-
-// y = "nuevo texto"; // ❌ Error! const no puede reasignarse
-
-// Const con objetos y arrays (el contenido SÍ puede cambiar)
-const persona = { nombre: "Ana", edad: 25 };
-persona.edad = 26; // ✅ Permitido, modificamos el contenido
-console.log("Persona:", persona);
-
-const lista = [1, 2, 3];
-lista.push(4); // ✅ Permitido, modificamos el contenido
-console.log("Lista:", lista);
-            </div>
-            
-            <button class="execute-btn" onclick="executeVariablesExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="variables-output">
-Variables declaradas: x=5, y="texto", z=true
-            </div>
-            
-            <div class="tip">
-                Usa <span class="highlight">let</span> para variables que cambiarán y <span class="highlight">const</span> para valores constantes. Evita <span class="highlight">var</span> en código moderno.
-            </div>
-        </section>
-
-        <section id="scope" class="section">
-            <h2>2.1 Scope de Variables</h2>
-            <div class="description">
-                El <strong>scope block</strong> se refiere a la visibilidad de las variables. Las variables declaradas con <span class="highlight">let</span> o <span class="highlight">const</span> no son accesibles desde afuera de su bloque.
-            </div>
-            
-            <div class="code-block">
-let x = 5;
-
-if (x > 0) {
-    let x = 10; // block-scoped
-    console.log("Dentro del bloque:", x); // 10
-}
-console.log("Fuera del bloque:", x); // 5
-
-// Ejemplo con var (scope global)
-if (true) {
-    var globalVar = "Soy global";
-    let blockVar = "Soy de bloque";
-}
-console.log("globalVar:", globalVar); // Accesible
-// console.log("blockVar:", blockVar); // Error!
-            </div>
-            
-            <button class="execute-btn" onclick="executeScopeExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="scope-output">
-Dentro del bloque: 10
-Fuera del bloque: 5
-globalVar: Soy global
-blockVar causaría error (no accesible)
-            </div>
-            
-            <div class="warning">
-                <span class="highlight">var</span> es accesible de manera global, lo que puede causar problemas inesperados.
-            </div>
-        </section>
-
-        <section id="operadores" class="section">
-            <h2>3. Operadores y Coerción</h2>
-            <div class="description">
-                JavaScript realiza coerción automática de tipos en las operaciones, lo que puede generar resultados inesperados.
-            </div>
-            
-            <div class="code-block">
-// Coerción automática de tipos
-console.log("=== Coerción de Tipos ===");
-console.log('1 + "2" =', 1 + "2");     // "12" (concatenación)
-console.log('2 * "3" =', 2 * "3");     // 6 (conversión a número)
-console.log('"5" - 2 =', "5" - 2);     // 3 (conversión a número)
-console.log('true + 1 =', true + 1);   // 2 (true = 1)
-console.log('false + 1 =', false + 1); // 1 (false = 0)
-
-// Comparaciones
-console.log("=== Comparaciones ===");
-console.log('2 == "2" =', 2 == "2");    // true (comparación con coerción)
-console.log('2 === "2" =', 2 === "2");  // false (comparación estricta)
-console.log('null == undefined =', null == undefined);   // true
-console.log('null === undefined =', null === undefined); // false
-
-// Operadores lógicos
-console.log("=== Operadores Lógicos ===");
-console.log('true && false =', true && false);   // false
-console.log('true || false =', true || false);   // true
-console.log('!true =', !true);                   // false
-
-// Valores falsy y truthy
-console.log("=== Falsy vs Truthy ===");
-console.log('Boolean("") =', Boolean(""));       // false
-console.log('Boolean("hola") =', Boolean("hola")); // true
-console.log('Boolean(0) =', Boolean(0));         // false
-console.log('Boolean(42) =', Boolean(42));       // true
-            </div>
-            
-            <button class="execute-btn" onclick="executeOperatorsExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="operators-output">
-1 + "2" = "12"
-2 * "3" = 6
-"5" - 2 = 3
-2 == "2" = true
-2 === "2" = false
-            </div>
-            
-            <div class="tip">
-                Usa siempre <span class="highlight">===</span> para comparaciones estrictas sin coerción de tipos.
-            </div>
-        </section>
-
-        <section id="control" class="section">
-            <h2>4. Control de Flujo</h2>
-            <div class="description">
-                Estructuras condicionales para controlar el flujo de ejecución del programa.
-            </div>
-            
-            <h3>if...else</h3>
-            <div class="code-block">
-const color = "rojo";
-const edad = 18;
-
-if (color === "rojo") {
-    console.log("Color es rojo");
-} else if (color === "azul") {
-    console.log("Color es azul");
-} else {
-    console.log("Otro color");
+for (const item of ["cache", "api", "fallback"]) {
+  if (item === "api") break;
+  console.log(item);
 }
 
-// Condicional con múltiples condiciones
-if (edad >= 18 && color === "rojo") {
-    console.log("Mayor de edad con color rojo");
-}
-            </div>
-            
-            <h3>switch</h3>
-            <div class="code-block">
-switch (color) {
-    case "rojo":
-        console.log("También rojo en switch");
-        break;
-    case "azul":
-        console.log("Es azul");
-        break;
-    case "verde":
-        console.log("Es verde");
-        break;
-    default:
-        console.log("No es rojo, azul ni verde");
-}
-            </div>
-            
-            <h3>Operador Ternario</h3>
-            <div class="code-block">
-const mensaje = edad >= 18 ? "Mayor de edad" : "Menor de edad";
-console.log("Mensaje:", mensaje);
+switch (tier) {
+  case "A": console.log("top"); break;
+  default: console.log("ok");
+}</code></pre>
+      </section>
 
-// Ternario anidado
-const categoria = edad < 13 ? "niño" : 
-                  edad < 18 ? "adolescente" : 
-                  edad < 65 ? "adulto" : "senior";
-console.log("Categoría:", categoria);
-            </div>
-            
-            <button class="execute-btn" onclick="executeControlFlowExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="control-flow-output">
-Color es rojo
-Mayor de edad con color rojo
-También rojo en switch
-Mensaje: Mayor de edad
-Categoría: adulto
-            </div>
-        </section>
+      <section class="section card-surface" id="colecciones">
+        <div class="section-head">
+          <p class="section-kicker">03</p>
+          <h2>Arrays, destructuring y colecciones</h2>
+        </div>
+        <p class="section-lead">Arrays, Set y Map agrupan datos; destructuring extrae valores explícitamente y reduce código repetitivo.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code></li>
+              <li>Spread, rest y destructuring profundo</li>
+              <li><code>Set</code> para unicidad y <code>Map</code> para claves ricas</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Caso de uso</h3>
+            <p>Normalizar carritos, eliminar duplicados, agrupar métricas y construir índices en memoria.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>const items = [
+  { sku: "A", price: 10 },
+  { sku: "B", price: 20 },
+  { sku: "A", price: 10 }
+];
 
-        <section id="arrays" class="section">
-            <h2>5. Arrays, Destructuración y Spread</h2>
-            <div class="description">
-                Trabajando con arrays y las nuevas sintaxis de ES6+ para manipulación eficiente de datos.
-            </div>
-            
-            <div class="code-block">
-const arr = [1, 2, 3];
-const [a, b, c] = arr;        // Destructuración
-const arr2 = [...arr, 4, 5];  // Spread operator
+const uniqueSkus = [...new Set(items.map(({ sku }) =&gt; sku))];
+const total = items.reduce((sum, item) =&gt; sum + item.price, 0);
+const [{ sku: firstSku }, ...rest] = items;
 
-console.log("a:", a, "b:", b, "c:", c);
-console.log("arr2:", arr2);
-            </div>
-            
-            <div class="output">
-a: 1 b: 2 c: 3
-arr2: [1, 2, 3, 4, 5]
-            </div>
-        </section>
+console.log(uniqueSkus, total, firstSku, rest.length);</code></pre>
+      </section>
 
-        <section id="objetos" class="section">
-            <h2>6. Objetos, Sets y Maps</h2>
-            <div class="description">
-                Estructuras de datos fundamentales en JavaScript para organizar información.
-            </div>
-            
-            <div class="code-block">
-// Objetos
-const obj = { 
-    nombre: "Ana", 
-    edad: 25,
-    saludar: function() {
-        return `Hola, soy ${this.nombre}`;
-    }
-};
-console.log("Objeto:", obj);
-console.log("Saludo:", obj.saludar());
-
-// Sets - elimina duplicados automáticamente
-const set = new Set([1, 2, 2, 3, 3, 4]); 
-console.log("Set:", set);
-console.log("Tamaño del Set:", set.size);
-
-// Operaciones con Set
-set.add(5);
-set.delete(1);
-console.log("Set modificado:", set);
-console.log("¿Contiene 3?", set.has(3));
-
-// Maps - pares clave-valor
-const map = new Map([
-    ["nombre", "Carlos"],
-    ["edad", 30],
-    ["profesion", "Desarrollador"]
-]);
-console.log("Map:", map);
-console.log("Nombre:", map.get("nombre"));
-
-// Operaciones con Map
-map.set("ciudad", "Madrid");
-console.log("Map con ciudad:", map);
-console.log("Claves:", [...map.keys()]);
-console.log("Valores:", [...map.values()]);
-            </div>
-            
-            <button class="execute-btn" onclick="executeObjectsExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="objects-output">
-Objeto: {nombre: "Ana", edad: 25, saludar: ƒ}
-Saludo: Hola, soy Ana
-Set: {2, 3, 4, 5}
-Tamaño del Set: 4
-¿Contiene 3? true
-Map: {"nombre" => "Carlos", "edad" => 30, "profesion" => "Desarrollador", "ciudad" => "Madrid"}
-Nombre: Carlos
-Claves: ["nombre", "edad", "profesion", "ciudad"]
-Valores: ["Carlos", 30, "Desarrollador", "Madrid"]
-            </div>
-        </section>
-
-        <section id="this" class="section">
-            <h2>6.1 La Palabra Clave "this"</h2>
-            <div class="description">
-                La palabra clave <code>this</code> es un puntero que hace referencia al contexto de ejecución actual. Su valor depende de cómo y dónde se invoque la función.
-            </div>
-            
-            <div class="warning">
-                <strong>⚠️ Importante:</strong> El valor de <code>this</code> cambia dependiendo del contexto:
-                <ul>
-                    <li><strong>En métodos de objetos:</strong> apunta al objeto</li>
-                    <li><strong>En funciones normales:</strong> apunta al objeto global (window/global)</li>
-                    <li><strong>En arrow functions:</strong> hereda el <code>this</code> del contexto padre</li>
-                    <li><strong>En modo estricto:</strong> puede ser <code>undefined</code></li>
-                </ul>
-            </div>
-            
-            <div class="code-block">
-// 1. this en métodos de objetos
-const persona = {
-    nombre: "María",
-    edad: 28,
-    
-    // Método tradicional - this apunta al objeto persona
-    saludar: function() {
-        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
-    },
-    
-    // Arrow function - this NO apunta al objeto persona
-    saludarArrow: () => {
-        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`; // undefined
-    },
-    
-    // Método con this anidado
-    mostrarInfo: function() {
-        console.log("Contexto externo this.nombre:", this.nombre);
-        
-        // Función anidada tradicional - this cambia de contexto
-        function funcionInterna() {
-            console.log("Función interna this.nombre:", this.nombre); // undefined
-        }
-        
-        // Arrow function anidada - mantiene el this del contexto padre
-        const arrowInterna = () => {
-            console.log("Arrow interna this.nombre:", this.nombre); // "María"
-        };
-        
-        funcionInterna();
-        arrowInterna();
-    }
+      <section class="section card-surface" id="objetos">
+        <div class="section-head">
+          <p class="section-kicker">04</p>
+          <h2>Objetos, referencias y this</h2>
+        </div>
+        <p class="section-lead">Un objeto agrupa propiedades y métodos. <code>this</code> apunta al contexto de invocación, por eso cambia según cómo se llama la función.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li>Objetos literales y propiedades calculadas</li>
+              <li><code>this</code> en métodos y callbacks</li>
+              <li><code>Map</code> vs objeto plano</li>
+              <li><code>Set</code>, <code>WeakMap</code> y referencias</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Error común</h3>
+            <p>Usar arrow functions como métodos cuando necesitas contexto dinámico de <code>this</code>.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>const account = {
+  owner: "Ana",
+  balance: 320,
+  deposit(amount) {
+    this.balance += amount;
+    return this.balance;
+  }
 };
 
-// 2. this en diferentes contextos
-console.log("=== Métodos de objeto ===");
-console.log(persona.saludar()); // "María"
-console.log(persona.saludarArrow()); // undefined
+const balances = new Map([["ana", 320]]);
+console.log(account.deposit(50));
+console.log(balances.get("ana"));</code></pre>
+      </section>
 
-console.log("\n=== This anidado ===");
-persona.mostrarInfo();
-
-// 3. this con call, apply y bind
-const otraPersona = {
-    nombre: "Carlos",
-    edad: 35
-};
-
-// Cambiar el contexto de this con call
-console.log("\n=== Cambiar contexto con call ===");
-console.log(persona.saludar.call(otraPersona)); // "Carlos"
-
-// 4. this en constructores y clases
-console.log("\n=== This en constructores ===");
-
-function Vehiculo(marca, modelo) {
-    this.marca = marca;
-    this.modelo = modelo;
-    this.acelerar = function() {
-        return `El ${this.marca} ${this.modelo} está acelerando`;
-    };
+      <section class="section card-surface" id="funciones">
+        <div class="section-head">
+          <p class="section-kicker">05</p>
+          <h2>Funciones, closures y composición</h2>
+        </div>
+        <p class="section-lead">Una función es una unidad reutilizable. Un closure ocurre cuando una función recuerda variables de su entorno aunque ese entorno ya terminó.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li>Funciones declarativas, expresiones y arrow functions</li>
+              <li>Parámetros por defecto y rest params</li>
+              <li>Closures y funciones de orden superior</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Caso de uso</h3>
+            <p>Memoización, control de acceso, factories y adaptadores para APIs.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>function createCounter(start = 0) {
+  let value = start;
+  return {
+    inc() { value += 1; return value; },
+    get() { return value; }
+  };
 }
 
-const coche = new Vehiculo("Toyota", "Corolla");
-console.log(coche.acelerar());
+const counter = createCounter(10);
+console.log(counter.inc());
+console.log(counter.get());</code></pre>
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="closures">Ejecutar demo</button>
+          <p class="microcopy">Ejercicio: crea un <code>memoize</code> para funciones puras costosas.</p>
+        </div>
+      </section>
 
-// 5. this en eventos (simulado)
-const boton = {
-    texto: "Click me",
-    
-    // Método tradicional para eventos
-    manejarClick: function() {
-        console.log(`Botón clickeado: ${this.texto}`);
-    },
-    
-    // Arrow function NO funciona bien para eventos
-    manejarClickArrow: () => {
-        console.log(`Botón clickeado: ${this.texto}`); // undefined
-    }
-};
-
-console.log("\n=== This en eventos simulados ===");
-boton.manejarClick(); // "Click me"
-boton.manejarClickArrow(); // undefined
-            </div>
-            
-            <button class="execute-btn" onclick="executeThisExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="this-output">
-=== Métodos de objeto ===
-Hola, soy María y tengo 28 años
-Hola, soy undefined y tengo undefined años
-
-=== This anidado ===
-Contexto externo this.nombre: María
-Función interna this.nombre: undefined
-Arrow interna this.nombre: María
-
-=== Cambiar contexto con call ===
-Hola, soy Carlos y tengo 35 años
-
-=== This en constructores ===
-El Toyota Corolla está acelerando
-
-=== This en eventos simulados ===
-Botón clickeado: Click me
-Botón clickeado: undefined
-            </div>
-        </section>
-
-        <section id="bucles" class="section">
-            <h2>7. Bucles</h2>
-            <div class="description">
-                Diferentes formas de iterar y repetir código en JavaScript. Los bucles son fundamentales para procesar arrays y ejecutar código repetitivo.
-            </div>
-            
-            <h3>for tradicional</h3>
-            <div class="code-block">
-for (let i = 0; i < 3; i++) {
-  console.log("for:", i);
-}
-            </div>
-            
-            <h3>for con arrays (i < lista.length)</h3>
-            <div class="code-block">
-const frutas = ["manzana", "banana", "naranja", "uva"];
-
-for (let i = 0; i < frutas.length; i++) {
-  console.log(`Fruta ${i + 1}: ${frutas[i]}`);
-}
-            </div>
-            
-            <h3>while</h3>
-            <div class="code-block">
-let i = 0;
-while (i < 3) {
-  console.log("while:", i);
-  i++;
-}
-            </div>
-            
-            <h3>do...while</h3>
-            <div class="code-block">
-i = 0;
-do {
-  console.log("do...while:", i);
-  i++;
-} while (i < 3);
-            </div>
-            
-            <h3>forEach - Método de Arrays</h3>
-            <div class="description">
-                El método <span class="highlight">forEach</span> es una forma moderna y funcional de iterar arrays. Ejecuta una función para cada elemento del array.
-            </div>
-            <div class="code-block">
-const numeros = [10, 20, 30, 40];
-
-// forEach básico
-numeros.forEach(function(numero) {
-  console.log("Número:", numero);
-});
-
-// forEach con arrow function
-numeros.forEach(numero => console.log("Arrow:", numero));
-
-// forEach con índice
-numeros.forEach((numero, indice) => {
-  console.log(`Posición ${indice}: ${numero}`);
-});
-            </div>
-            
-            <h3>for...of (Iteración moderna)</h3>
-            <div class="code-block">
-const colores = ["rojo", "verde", "azul"];
-
-for (const color of colores) {
-  console.log("Color:", color);
-}
-            </div>
-            
-            <h3>for...in (Propiedades de objetos)</h3>
-            <div class="code-block">
-const persona = { nombre: "Ana", edad: 25, ciudad: "Madrid" };
-
-for (const propiedad in persona) {
-  console.log(`${propiedad}: ${persona[propiedad]}`);
-}
-            </div>
-            
-            <button class="execute-btn" onclick="executeLoopsExample()">Ejecutar todos los bucles</button>
-            
-            <div class="output hidden" id="loops-output">
-=== Bucles Tradicionales ===
-for: 0, for: 1, for: 2
-while: 0, while: 1, while: 2
-do...while: 0, do...while: 1, do...while: 2
-
-=== Bucles con Arrays ===
-Fruta 1: manzana
-Fruta 2: banana
-Fruta 3: naranja
-Fruta 4: uva
-
-=== forEach ===
-Número: 10, Número: 20, Número: 30, Número: 40
-Arrow: 10, Arrow: 20, Arrow: 30, Arrow: 40
-Posición 0: 10, Posición 1: 20, Posición 2: 30, Posición 3: 40
-
-=== for...of ===
-Color: rojo, Color: verde, Color: azul
-
-=== for...in ===
-nombre: Ana, edad: 25, ciudad: Madrid
-            </div>
-            
-            <div class="tip">
-                <strong>Cuándo usar cada bucle:</strong><br>
-                • <span class="highlight">for</span>: Cuando necesitas el índice o control preciso<br>
-                • <span class="highlight">forEach</span>: Para iterar arrays de forma funcional<br>
-                • <span class="highlight">for...of</span>: Para iterar valores de arrays/strings<br>
-                • <span class="highlight">for...in</span>: Para iterar propiedades de objetos<br>
-                • <span class="highlight">while/do...while</span>: Cuando no sabes cuántas iteraciones necesitas
-            </div>
-            
-            <div class="warning">
-                Evita usar <span class="highlight">for...in</span> con arrays. Úsalo solo para objetos. Para arrays, prefiere <span class="highlight">for...of</span> o <span class="highlight">forEach</span>.
-            </div>
-        </section>
-
-        <section id="errores" class="section">
-            <h2>8. Manejo de Errores</h2>
-            <div class="description">
-                Control de errores para crear aplicaciones más robustas y confiables.
-            </div>
-            
-            <div class="code-block">
-// Try-catch básico
-try {
-    throw new Error("Algo salió mal");
-} catch (err) {
-    console.error("Error atrapado:", err.message);
+      <section class="section card-surface" id="errores">
+        <div class="section-head">
+          <p class="section-kicker">06</p>
+          <h2>Manejo de errores</h2>
+        </div>
+        <p class="section-lead">Una excepción es un fallo que interrumpe el flujo normal. Capturarla permite evitar caídas silenciosas y devolver un estado manejable.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>try/catch/finally</code></li>
+              <li><code>Error</code>, <code>TypeError</code> y errores personalizados</li>
+              <li>Errores en asincronía con <code>await</code></li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Recomendación</h3>
+            <p>Valida entradas al borde del sistema y reserva <code>throw</code> para fallos que no se pueden continuar.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
 }
 
-// Try-catch con diferentes tipos de errores
-function dividir(a, b) {
-    try {
-        if (b === 0) {
-            throw new Error("División por cero no permitida");
-        }
-        if (typeof a !== 'number' || typeof b !== 'number') {
-            throw new TypeError("Los argumentos deben ser números");
-        }
-        return a / b;
-    } catch (error) {
-        console.error("Error en división:", error.message);
-        return null;
-    } finally {
-        console.log("Operación de división finalizada");
-    }
+function parseAge(value) {
+  const age = Number(value);
+  if (!Number.isFinite(age)) throw new ValidationError("Edad inválida");
+  return age;
+}</code></pre>
+      </section>
+
+      <section class="section card-surface" id="oop">
+        <div class="section-head">
+          <p class="section-kicker">07</p>
+          <h2>Prototipos, clases y composición</h2>
+        </div>
+        <p class="section-lead">El prototipo es el mecanismo de herencia de JavaScript. Las clases son una sintaxis más legible sobre esa misma base prototípica.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>Object.create</code> y <code>prototype</code></li>
+              <li><code>class</code>, <code>extends</code>, getters y setters</li>
+              <li>Campos privados y mixins</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Advertencia</h3>
+            <p>Evita modificar prototipos nativos. Si necesitas comportamientos nuevos, crea utilidades explícitas.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>class Vehicle {
+  constructor(model) {
+    this.model = model;
+  }
+  describe() {
+    return `Vehicle: ${this.model}`;
+  }
 }
 
-// Ejemplos de uso
-console.log("Resultado 1:", dividir(10, 2));
-console.log("Resultado 2:", dividir(10, 0));
-console.log("Resultado 3:", dividir("10", 2));
+class Car extends Vehicle {
+  describe() {
+    return `${super.describe()} | 4 wheels`;
+  }
+}</code></pre>
+      </section>
 
-// Manejo de errores asincrónicos
-async function funcionAsincrona() {
-    try {
-        // Simulación de operación asíncrona
-        await new Promise((resolve, reject) => {
-            setTimeout(() => reject(new Error("Error asíncrono")), 100);
-        });
-    } catch (error) {
-        console.error("Error asíncrono capturado:", error.message);
-    }
+      <section class="section card-surface" id="asincronia">
+        <div class="section-head">
+          <p class="section-kicker">08</p>
+          <h2>Promesas, async/await y concurrencia</h2>
+        </div>
+        <p class="section-lead">La asincronía permite ejecutar tareas sin bloquear la interfaz. Las promesas modelan un resultado futuro y <code>async/await</code> lo hace legible.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li>Estados de Promise y encadenamiento</li>
+              <li><code>Promise.all</code>, <code>race</code> y <code>allSettled</code></li>
+              <li><code>async/await</code> con control de errores</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Caso de uso</h3>
+            <p>Consumir APIs, orquestar solicitudes paralelas y cancelar operaciones lentas.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>async function loadDashboard() {
+  const [users, metrics] = await Promise.all([
+    fetch("/api/users").then(r =&gt; r.json()),
+    fetch("/api/metrics").then(r =&gt; r.json())
+  ]);
+
+  return { users, metrics };
+}</code></pre>
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="async">Ejecutar demo</button>
+          <p class="microcopy">Ejercicio: añade <code>AbortController</code> a una petición lenta.</p>
+        </div>
+      </section>
+
+      <section class="section card-surface" id="modulos">
+        <div class="section-head">
+          <p class="section-kicker">09</p>
+          <h2>Módulos y organización</h2>
+        </div>
+        <p class="section-lead">Un módulo encapsula código relacionado y expone solo lo necesario. Eso mejora mantenimiento, reutilización y testabilidad.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>export</code> y <code>import</code></li>
+              <li>Funciones puras y utilidades compartidas</li>
+              <li>Arquitectura por dominio o feature</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Estructura sugerida</h3>
+            <p><code>src/core</code>, <code>src/features</code>, <code>src/ui</code>, <code>src/utils</code>.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>// math.js
+export const sum = (a, b) =&gt; a + b;
+
+// app.js
+import { sum } from "./math.js";
+console.log(sum(2, 3));</code></pre>
+      </section>
+
+      <section class="section card-surface" id="dom">
+        <div class="section-head">
+          <p class="section-kicker">10</p>
+          <h2>DOM, eventos y listeners</h2>
+        </div>
+        <p class="section-lead">El DOM es la representación en memoria de la página. Un listener es una función que responde a un evento; la delegación usa un contenedor para manejar varios hijos.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>querySelector</code>, <code>classList</code> y atributos data</li>
+              <li>Delegación de eventos</li>
+              <li>Validación de formularios</li>
+              <li><code>addEventListener</code>, <code>removeEventListener</code> y opciones</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Caso de uso</h3>
+            <p>Tabs, listas interactivas, modales, filtros y formularios sin frameworks.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>document.addEventListener("click", (event) =&gt; {
+  const button = event.target.closest("[data-action]");
+  if (!button) return;
+  console.log(button.dataset.action);
+});</code></pre>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Listeners comunes</h3>
+            <ul>
+              <li><code>click</code>, <code>dblclick</code>, <code>mouseover</code>, <code>keydown</code></li>
+              <li><code>input</code>, <code>change</code>, <code>submit</code>, <code>focus</code>, <code>blur</code></li>
+              <li><code>scroll</code>, <code>resize</code>, <code>touchstart</code>, <code>pointerdown</code></li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Opciones útiles</h3>
+            <ul>
+              <li><code>once: true</code> para ejecutar una sola vez</li>
+              <li><code>capture: true</code> para escuchar en fase de captura</li>
+              <li><code>passive: true</code> para no bloquear scroll</li>
+            </ul>
+          </article>
+        </div>
+        <pre class="code-block"><code>const saveBtn = document.querySelector("[data-action='save']");
+
+function handleSave(event) {
+  console.log(event.type, event.target.dataset.action);
 }
 
-funcionAsincrona();
-            </div>
-            
-            <button class="execute-btn" onclick="executeErrorHandlingExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="error-handling-output">
-Error atrapado: Algo salió mal
-Resultado 1: 5
-Operación de división finalizada
-Error en división: División por cero no permitida
-Resultado 2: null
-Operación de división finalizada
-Error en división: Los argumentos deben ser números
-Resultado 3: null
-Operación de división finalizada
-Error asíncrono capturado: Error asíncrono
-            </div>
-            
-            <div class="tip">
-                Siempre maneja los errores que puedan ocurrir para evitar que tu aplicación se rompa inesperadamente. Usa <span class="highlight">finally</span> para código que debe ejecutarse siempre.
-            </div>
-        </section>
+document.addEventListener("keydown", (event) =&gt; {
+  if (event.key === "Escape") console.log("cerrar modal");
+});</code></pre>
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="dom">Ejecutar demo</button>
+          <button class="button button-primary" data-demo="events">Demo listeners</button>
+          <p class="microcopy">Ejercicio: construye una lista de tareas con filtrado por estado.</p>
+        </div>
+        <div class="info-block">
+          <h3>Propagación de eventos</h3>
+          <p>Un evento puede capturarse, dispararse en el target y luego burbujear. Esto es la base de la delegación eficiente.</p>
+          <pre class="code-block"><code>parent.addEventListener("click", onClick, true); // captura
+child.addEventListener("click", onClick);        // target + bubbling
 
-        <section id="funciones" class="section">
-            <h2>9. Funciones y Scope</h2>
-            <div class="description">
-                Las funciones son bloques de código reutilizables. El contexto <span class="highlight">this</span> varía según cómo se invoque la función.
-            </div>
-            
-            <div class="code-block">
-// Función tradicional
-function saludar(nombre) {
-    return `Hola, ${nombre}`;
+function onClick(event) {
+  event.stopPropagation();
+}</code></pre>
+        </div>
+      </section>
+
+      <section class="section card-surface" id="practice">
+        <div class="section-head">
+          <p class="section-kicker">10.1</p>
+          <h2>Práctica: formulario, validación y todo app</h2>
+        </div>
+        <p class="section-lead">La validación impide aceptar datos inválidos. La delegación simplifica listeners en listas dinámicas y la persistencia local conserva el estado entre recargas.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Qué aprenderás</h3>
+            <ul>
+              <li>Validación de entrada antes de mutar estado</li>
+              <li>Escucha del evento <code>submit</code></li>
+              <li>Delegación sobre una lista dinámica</li>
+              <li><code>localStorage</code> como persistencia simple</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Definición breve</h3>
+            <p>Un listener es una función registrada para reaccionar a un evento. La delegación escucha en un contenedor y decide qué hacer según <code>event.target</code>.</p>
+          </article>
+        </div>
+
+        <form id="task-form" class="task-form card-surface" novalidate>
+          <label class="field">
+            <span>Tarea</span>
+            <input id="task-input" name="task" type="text" maxlength="80" placeholder="Ej. Leer sobre event loop" autocomplete="off" required>
+          </label>
+          <label class="field">
+            <span>Nivel</span>
+            <select id="task-priority" name="priority">
+              <option value="low">Baja</option>
+              <option value="medium" selected>Media</option>
+              <option value="high">Alta</option>
+            </select>
+          </label>
+          <button class="button button-primary" type="submit">Agregar tarea</button>
+          <p class="form-error" id="task-error" aria-live="polite"></p>
+        </form>
+
+        <div class="todo-toolbar card-surface">
+          <div class="todo-stats" id="todo-stats">0 tareas pendientes</div>
+          <div class="button-row">
+            <button class="button button-ghost" type="button" data-filter="all">Todas</button>
+            <button class="button button-ghost" type="button" data-filter="active">Pendientes</button>
+            <button class="button button-ghost" type="button" data-filter="done">Completadas</button>
+          </div>
+        </div>
+
+        <ul class="todo-list" id="todo-list" aria-label="Lista de tareas"></ul>
+
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="todo">Demo todo app</button>
+          <p class="microcopy">Ejercicio: añade edición inline y ordenamiento por prioridad.</p>
+        </div>
+      </section>
+
+      <section class="section card-surface" id="forms-demo">
+        <div class="section-head">
+          <p class="section-kicker">10.2</p>
+          <h2>Ejemplo: eventos con formularios</h2>
+        </div>
+        <p class="section-lead">Este ejemplo muestra cómo se usan `input`, `change`, `submit` y `reset` en un formulario real con retroalimentación visual.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Qué observar</h3>
+            <ul>
+              <li><code>input</code> actualiza el contador en tiempo real</li>
+              <li><code>change</code> confirma el valor final del select</li>
+              <li><code>submit</code> evita el envío si faltan datos</li>
+              <li><code>reset</code> restaura el estado inicial</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Definición</h3>
+            <p>Los eventos de formulario son señales del navegador sobre cambios en campos y envío. Se usan para validar, normalizar y reaccionar a la intención del usuario.</p>
+          </article>
+        </div>
+
+        <form id="newsletter-form" class="task-form card-surface" novalidate>
+          <label class="field">
+            <span>Nombre</span>
+            <input id="newsletter-name" name="name" type="text" maxlength="40" placeholder="Tu nombre" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span>Formato</span>
+            <select id="newsletter-format" name="format">
+              <option value="weekly">Semanal</option>
+              <option value="monthly">Mensual</option>
+            </select>
+          </label>
+          <button class="button button-primary" type="submit">Suscribirme</button>
+          <button class="button button-ghost" type="reset">Limpiar</button>
+          <p class="form-error" id="newsletter-feedback" aria-live="polite"></p>
+        </form>
+
+        <div class="info-block">
+          <h3>Salida</h3>
+          <p id="newsletter-log">Escribe tu nombre y observa cómo cambian los eventos del formulario.</p>
+        </div>
+
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="forms">Demo formularios</button>
+        </div>
+      </section>
+
+      <section class="section card-surface" id="apis">
+        <div class="section-head">
+          <p class="section-kicker">11</p>
+          <h2>APIs del navegador y persistencia</h2>
+        </div>
+        <p class="section-lead">Las APIs del navegador son capacidades listas para usar: red, almacenamiento, historial, URL y portapapeles sin depender de librerías externas.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>fetch</code> y manejo de estados de red</li>
+              <li><code>localStorage</code> y <code>sessionStorage</code></li>
+              <li><code>URLSearchParams</code>, <code>AbortController</code> y clipboard</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Buenas prácticas</h3>
+            <p>Normaliza datos, cachea con intención y maneja el fallo de red como un estado esperado.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>const params = new URLSearchParams(location.search);
+const theme = params.get("theme") ?? "dark";
+localStorage.setItem("theme", theme);
+
+const controller = new AbortController();
+fetch("/api/data", { signal: controller.signal });</code></pre>
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="storage">Ejecutar demo</button>
+          <button class="button button-primary" data-demo="fetch">Demo fetch</button>
+        </div>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Cancelación</h3>
+            <p><code>AbortController</code> corta la solicitud antes de que termine para evitar trabajo inútil o carreras de actualización.</p>
+          </article>
+          <article class="info-block">
+            <h3>Salida</h3>
+            <p id="fetch-status">Pulsa la demo para ejecutar una solicitud real.</p>
+          </article>
+        </div>
+        <div class="info-block">
+          <h3>Remove listener</h3>
+          <p>Este botón solo responde una vez porque su listener se elimina después del primer clic.</p>
+          <button class="button button-ghost" id="remove-listener-btn" type="button">Probar removeEventListener</button>
+        </div>
+      </section>
+
+      <section class="section card-surface" id="avanzado">
+        <div class="section-head">
+          <p class="section-kicker">12</p>
+          <h2>Iterators, generators, Proxy, Reflect y Symbols</h2>
+        </div>
+        <p class="section-lead">Estos mecanismos sirven para casos avanzados: generadores crean secuencias perezosas, Proxy intercepta operaciones y Symbol evita colisiones de claves.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li>Iteración personalizada</li>
+              <li><code>function*</code> y <code>yield</code></li>
+              <li><code>Proxy</code> para validación y observabilidad</li>
+              <li><code>Symbol</code> para claves únicas</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Caso de uso</h3>
+            <p>Validar modelos, construir colecciones perezosas y encapsular metadatos internos.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>const user = new Proxy({ age: 18 }, {
+  set(target, key, value) {
+    if (key === "age" &amp;&amp; value &lt; 0) throw new Error("Edad inválida");
+    target[key] = value;
+    return true;
+  }
+});</code></pre>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Generators e iterators</h3>
+            <p>Útiles para secuencias perezosas, paginación y flujos controlados de datos.</p>
+            <pre class="code-block"><code>function* idSequence() {
+  let id = 1;
+  while (id &lt;= 3) {
+    yield id++;
+  }
 }
-console.log("Función tradicional:", saludar("Carlos"));
 
-// Arrow function
-const saludarArrow = (nombre) => `Hola desde arrow, ${nombre}`;
-console.log("Arrow function:", saludarArrow("Ana"));
+console.log([...idSequence()]);</code></pre>
+          </article>
+          <article class="info-block">
+            <h3>Symbols, WeakMap y Reflect</h3>
+            <p>Symbols evitan colisiones; WeakMap protege metadata; Reflect hace más explícitas operaciones de bajo nivel.</p>
+            <pre class="code-block"><code>const secret = Symbol("secret");
+const cache = new WeakMap();
+const model = {};
 
-// Función con parámetros por defecto
-function presentar(nombre = "Anónimo", edad = 0) {
-    return `Me llamo ${nombre} y tengo ${edad} años`;
-}
-console.log("Con defaults:", presentar());
-console.log("Con parámetros:", presentar("Luis", 25));
+cache.set(model, { ready: true });
+model[secret] = "hidden";
+Reflect.set(model, "status", "ok");</code></pre>
+          </article>
+        </div>
+        <div class="info-block">
+          <h3>Event loop y microtasks</h3>
+          <p>Los callbacks de promesas van a microtasks, por eso pueden ejecutarse antes que timers con el mismo tick.</p>
+          <pre class="code-block"><code>console.log("A");
+Promise.resolve().then(() =&gt; console.log("B"));
+setTimeout(() =&gt; console.log("C"), 0);
+console.log("D");</code></pre>
+        </div>
+        <div class="section-actions">
+          <button class="button button-primary" data-demo="proxy">Ejecutar demo</button>
+        </div>
+      </section>
 
-// Objeto con métodos y 'this'
-const persona = {
-    nombre: "Luisa",
-    edad: 30,
-    
-    saludar: function() {
-        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
-    },
-    
-    // Arrow function no conserva 'this'
-    saludarArrow: () => {
-        return `Arrow function, this.nombre es: ${this.nombre}`;
-    },
-    
-    cumplirAnios: function() {
-        this.edad++;
-        return `Ahora tengo ${this.edad} años`;
-    }
-};
-
-console.log("Método normal:", persona.saludar());
-console.log("Arrow en objeto:", persona.saludarArrow());
-console.log("Cumplir años:", persona.cumplirAnios());
-
-// Función de orden superior
-function aplicarOperacion(a, b, operacion) {
-    return operacion(a, b);
-}
-
-const sumar = (x, y) => x + y;
-const multiplicar = (x, y) => x * y;
-
-console.log("Suma:", aplicarOperacion(5, 3, sumar));
-console.log("Multiplicación:", aplicarOperacion(5, 3, multiplicar));
-            </div>
-            
-            <button class="execute-btn" onclick="executeFunctionsExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="functions-output">
-Función tradicional: Hola, Carlos
-Arrow function: Hola desde arrow, Ana
-Con defaults: Me llamo Anónimo y tengo 0 años
-Con parámetros: Me llamo Luis y tengo 25 años
-Método normal: Hola, soy Luisa y tengo 30 años
-Arrow en objeto: Arrow function, this.nombre es: undefined
-Cumplir años: Ahora tengo 31 años
-Suma: 8
-Multiplicación: 15
-            </div>
-        </section>
-
-        <section id="metodos-array" class="section">
-            <h2>10. Métodos de Arrays</h2>
-            <div class="description">
-                Métodos funcionales para transformar y procesar arrays de manera eficiente.
-            </div>
-            
-            <div class="code-block">
-const nums = [1, 2, 3, 4, 5];
-
-// map - Transforma cada elemento
-const dobles = nums.map(n => n * 2);           
-const cuadrados = nums.map(n => n * n);
-console.log("Originales:", nums);
-console.log("Dobles:", dobles);        // [2, 4, 6, 8, 10]
-console.log("Cuadrados:", cuadrados);  // [1, 4, 9, 16, 25]
-
-// filter - Filtra elementos que cumplen condición
-const pares = nums.filter(n => n % 2 === 0);   
-const mayoresATres = nums.filter(n => n > 3);
-console.log("Pares:", pares);          // [2, 4]
-console.log("Mayores a 3:", mayoresATres); // [4, 5]
-
-// reduce - Reduce array a un solo valor
-const suma = nums.reduce((acc, n) => acc + n, 0); 
-const producto = nums.reduce((acc, n) => acc * n, 1);
-const maximo = nums.reduce((max, n) => n > max ? n : max);
-console.log("Suma:", suma);            // 15
-console.log("Producto:", producto);    // 120
-console.log("Máximo:", maximo);        // 5
-
-// Encadenamiento de métodos
-const resultado = nums
-    .filter(n => n > 2)        // [3, 4, 5]
-    .map(n => n * n)           // [9, 16, 25]
-    .reduce((sum, n) => sum + n, 0); // 50
-
-console.log("Encadenado:", resultado); // 50
-
-// find y findIndex
-const encontrado = nums.find(n => n > 3);
-const indice = nums.findIndex(n => n > 3);
-console.log("Encontrado:", encontrado); // 4
-console.log("Índice:", indice);         // 3
-            </div>
-            
-            <button class="execute-btn" onclick="executeArrayMethodsExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="array-methods-output">
-Dobles: [2, 4, 6, 8]
-Pares: [2, 4]
-Suma: 10
-            </div>
-        </section>
-
-        <section id="promesas" class="section">
-            <h2>11. Promesas</h2>
-            <div class="description">
-                Las promesas permiten manejar operaciones asíncronas de manera más limpia que los callbacks.
-            </div>
-            
-            <div class="code-block">
-// Promesa básica
-const promesa = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        const exito = Math.random() > 0.3; // 70% de probabilidad de éxito
-        if (exito) {
-            resolve("¡Operación exitosa!");
-        } else {
-            reject(new Error("Algo falló"));
-        }
-    }, 1000);
-});
-
-// Manejo con .then() y .catch()
-promesa
-    .then(msg => {
-        console.log("Promesa resuelta:", msg);
-        return "Procesando resultado...";
-    })
-    .then(resultado => {
-        console.log("Segundo then:", resultado);
-    })
-    .catch(err => {
-        console.error("Promesa rechazada:", err.message);
-    })
-    .finally(() => {
-        console.log("Promesa finalizada");
-    });
-
-// Async/Await (sintaxis moderna)
-async function manejarPromesaAsync() {
-    try {
-        console.log("Iniciando operación async...");
-        const resultado = await promesa;
-        console.log("Async resultado:", resultado);
-    } catch (error) {
-        console.error("Async error:", error.message);
-    }
+      <section class="section card-surface" id="testing">
+        <div class="section-head">
+          <p class="section-kicker">13</p>
+          <h2>Testing, debugging y performance</h2>
+        </div>
+        <p class="section-lead">Testing verifica comportamiento esperado; debugging localiza causas; performance evita trabajo innecesario y cuellos de botella visibles.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><code>console.assert</code>, <code>console.table</code> y trazas</li>
+              <li>Funciones puras y tests unitarios</li>
+              <li>Debounce, memoización y event loop</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Señal de alerta</h3>
+            <p>Si una función hace demasiadas cosas, será difícil testearla y más fácil romperla al crecer.</p>
+          </article>
+        </div>
+        <pre class="code-block"><code>function sum(a, b) {
+  return a + b;
 }
 
-// Promise.all - ejecutar múltiples promesas en paralelo
-const promesa1 = Promise.resolve("Primera");
-const promesa2 = Promise.resolve("Segunda");
-const promesa3 = new Promise(resolve => {
-    setTimeout(() => resolve("Tercera"), 500);
-});
+console.assert(sum(2, 3) === 5, "sum failed");
+console.table([{ case: "basic", ok: true }]);</code></pre>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Ejercicios propuestos</h3>
+            <ul>
+              <li>Escribe tests para una función pura de descuento.</li>
+              <li>Implementa debounce para un buscador.</li>
+              <li>Mide el costo de un loop vs <code>map</code> en una lista grande.</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Patrón de uso</h3>
+            <p>Haz pruebas sobre funciones puras, aísla efectos secundarios y deja la UI como la capa menos lógica.</p>
+          </article>
+        </div>
+      </section>
 
-Promise.all([promesa1, promesa2, promesa3])
-    .then(resultados => {
-        console.log("Promise.all resultados:", resultados);
-    });
+      <section class="section card-surface" id="laboratorio">
+        <div class="section-head">
+          <p class="section-kicker">Lab</p>
+          <h2>Laboratorio interactivo</h2>
+        </div>
+        <p class="section-lead">Ejecuta demos rápidas para ver comportamientos clave sin salir de la guía.</p>
+        <div class="button-row">
+          <button class="button button-primary" data-demo="fundamentos">Coerción</button>
+          <button class="button button-primary" data-demo="closures">Closures</button>
+          <button class="button button-primary" data-demo="async">Async</button>
+          <button class="button button-primary" data-demo="dom">DOM</button>
+          <button class="button button-primary" data-demo="events">Events</button>
+          <button class="button button-primary" data-demo="storage">Storage</button>
+          <button class="button button-primary" data-demo="proxy">Proxy</button>
+        </div>
+        <pre class="console-panel" id="demo-output" aria-live="polite">Selecciona una demo para verla aquí.</pre>
+      </section>
 
-// Promise.race - la primera que se resuelve
-Promise.race([
-    new Promise(resolve => setTimeout(() => resolve("Rápida"), 100)),
-    new Promise(resolve => setTimeout(() => resolve("Lenta"), 300))
-])
-.then(resultado => {
-    console.log("Promise.race ganador:", resultado);
-});
+      <section class="section card-surface" id="roadmap">
+        <div class="section-head">
+          <p class="section-kicker">Roadmap</p>
+          <h2>Próximos pasos y ejercicios</h2>
+        </div>
+        <p class="section-lead">Ruta priorizada para consolidar aprendizaje, ampliar cobertura y convertir la guía en un mini curso práctico.</p>
+        <div class="two-col">
+          <article class="info-block">
+            <h3>Prioridad alta</h3>
+            <ul>
+              <li>Crear ejercicios por sección con solución</li>
+              <li>Agregar DOM, fetch y módulos como demos completas</li>
+              <li>Separar el contenido por nivel</li>
+            </ul>
+          </article>
+          <article class="info-block">
+            <h3>Proyectos sugeridos</h3>
+            <ul>
+              <li>Tracker de hábitos</li>
+              <li>Buscador con filtros y caché</li>
+              <li>Dashboard de métricas con API mock</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
 
-// Ejecutar función async
-manejarPromesaAsync();
-            </div>
-            
-            <button class="execute-btn" onclick="executePromisesExample()">Ejecutar código</button>
-            
-            <div class="output hidden" id="promises-output">
-Iniciando operación async...
-Promesa resuelta: ¡Operación exitosa! (o error si falla)
-Segundo then: Procesando resultado...
-Promesa finalizada
-Async resultado: ¡Operación exitosa!
-Promise.all resultados: ["Primera", "Segunda", "Tercera"]
-Promise.race ganador: Rápida
-            </div>
-        </section>
+    <footer class="footer card-surface">
+      <p>Proyecto open source bajo licencia MIT.</p>
+      <p>Hecho con JavaScript vanilla, HTML y CSS.</p>
+      <p>Créditos: @Al1ne</p>
+    </footer>
+  </div>
 
-        <section id="destructuring-avanzado" class="section">
-            <h2>5.1 Destructuring Avanzado</h2>
-            <div class="description">
-                El destructuring te permite "desempacar" valores de arrays u objetos en variables individuales con sintaxis avanzada.
-            </div>
-            
-            <h3>Arrays Avanzado</h3>
-            <div class="code-block">
-// Saltos y rest
-const arrA = [10, 20, 30, 40];
-const [firstA, secondA] = arrA;           // 10, 20
-const [, , thirdA] = arrA;                // 30 (saltando dos)
-const [headA, ...tailA] = arrA;           // headA=10, tailA=[20,30,40]
-
-// Valores por defecto
-const arrB = [1, undefined, null];
-const [b1 = 100, b2 = 200, b3 = 300] = arrB;
-
-// Intercambio de variables
-let left = "A", right = "B";
-[right, left] = [left, right];
-            </div>
-            
-            <h3>Objetos Avanzado</h3>
-            <div class="code-block">
-// Renombrado y defaults
-const user1 = { id: 42, name: "Ada Lovelace", active: true };
-const { id: userId, name: fullName, role = "user" } = user1;
-
-// Anidamiento
-const order = {
-  customer: { name: "Ana", address: { city: "Bogotá" } }
-};
-const { 
-  customer: { 
-    name: customerName, 
-    address: { city } 
-  } 
-} = order;
-
-// Rest properties
-const { id, ...restProps } = user1;
-            </div>
-            
-            <div class="tip">
-                El destructuring es especialmente útil en parámetros de funciones y para extraer datos de APIs.
-            </div>
-        </section>
-
-        <script>
-            // ====================================================
-            // TOGGLE DE TEMA DÍA/NOCHE
-            // ====================================================
-            
-            // Obtener el tema guardado o usar 'dark' por defecto (modo nocturno)
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            
-            // Actualizar el icono del botón según el tema
-            const themeToggle = document.getElementById('themeToggle');
-            function updateThemeIcon() {
-                const theme = document.documentElement.getAttribute('data-theme');
-                themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-                themeToggle.title = theme === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro';
-            }
-            updateThemeIcon();
-            
-            // Event listener para el toggle
-            themeToggle.addEventListener('click', function() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                updateThemeIcon();
-            });
-
-            // ====================================================
-            // FUNCIONES DE EJECUCIÓN DE CÓDIGO
-            // ====================================================
-            
-            // Función auxiliar para mostrar output
-            function showOutput(elementId) {
-                const output = document.getElementById(elementId);
-                output.classList.remove('hidden');
-                output.classList.add('visible');
-                
-                // Scroll suave al output
-                setTimeout(() => {
-                    output.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-            }
-            
-            // 1. Consola
-            function executeConsoleExample() {
-                console.log("=== 1. Consola ===");
-                console.log("Hola, JavaScript!");
-                
-                showOutput('console-output');
-            }
-            
-            // 2. Variables
-            function executeVariablesExample() {
-                let x = 5;
-                const y = "texto";
-                var z = true;
-                
-                // Ejemplos de mutabilidad
-                x = 10;
-                console.log("x modificado:", x);
-                
-                const persona = { nombre: "Ana", edad: 25 };
-                persona.edad = 26;
-                console.log("Persona:", persona);
-                
-                const lista = [1, 2, 3];
-                lista.push(4);
-                console.log("Lista:", lista);
-                
-                console.log("Variables declaradas:");
-                console.log("x =", x, "(let)");
-                console.log("y =", y, "(const)");
-                console.log("z =", z, "(var)");
-                
-                showOutput('variables-output');
-            }
-            
-            // 2.1 Scope
-            function executeScopeExample() {
-                let x = 5;
-                
-                if (x > 0) {
-                    let x = 10;
-                    console.log("Dentro del bloque:", x);
-                }
-                console.log("Fuera del bloque:", x);
-                
-                if (true) {
-                    var globalVar = "Soy global";
-                    let blockVar = "Soy de bloque";
-                }
-                console.log("globalVar:", globalVar);
-                console.log("blockVar causaría error si intentamos accederla aquí");
-                
-                showOutput('scope-output');
-            }
-            
-            // 3. Operadores (actualizada)
-            function executeOperatorsExample() {
-                console.log("=== Operadores y Coerción ===");
-                console.log('1 + "2" =', 1 + "2");
-                console.log('2 * "3" =', 2 * "3");
-                console.log('"5" - 2 =', "5" - 2);
-                console.log('2 == "2" =', 2 == "2");
-                console.log('2 === "2" =', 2 === "2");
-                console.log('true + 1 =', true + 1);
-                console.log('Boolean("") =', Boolean(""));
-                console.log('Boolean("hola") =', Boolean("hola"));
-                
-                showOutput('operators-output');
-            }
-            
-            // 4. Control de Flujo
-            function executeControlFlowExample() {
-                const color = "rojo";
-                const edad = 18;
-                
-                console.log("=== Control de Flujo ===");
-                
-                if (color === "rojo") {
-                    console.log("Color es rojo");
-                } else if (color === "azul") {
-                    console.log("Color es azul");
-                } else {
-                    console.log("Otro color");
-                }
-                
-                if (edad >= 18 && color === "rojo") {
-                    console.log("Mayor de edad con color rojo");
-                }
-                
-                switch (color) {
-                    case "rojo":
-                        console.log("También rojo en switch");
-                        break;
-                    case "azul":
-                        console.log("Es azul");
-                        break;
-                    default:
-                        console.log("No es rojo ni azul");
-                }
-                
-                const mensaje = edad >= 18 ? "Mayor de edad" : "Menor de edad";
-                console.log("Mensaje:", mensaje);
-                
-                const categoria = edad < 13 ? "niño" : 
-                                  edad < 18 ? "adolescente" : 
-                                  edad < 65 ? "adulto" : "senior";
-                console.log("Categoría:", categoria);
-                
-                showOutput('control-flow-output');
-            }
-            
-            // 5. Arrays
-            function executeArraysExample() {
-                console.log("=== Arrays y Destructuring ===");
-                
-                const arr = [1, 2, 3];
-                const [a, b, c] = arr;
-                const arr2 = [...arr, 4, 5];
-                
-                console.log("a:", a, "b:", b, "c:", c);
-                console.log("arr2:", arr2);
-                
-                const numeros = [10, 20, 30, 40, 50];
-                const [primero, segundo, ...resto] = numeros;
-                console.log("Primero:", primero);
-                console.log("Segundo:", segundo);
-                console.log("Resto:", resto);
-                
-                const arr3 = [1, 2];
-                const arr4 = [3, 4];
-                const combinado = [...arr3, ...arr4, 5, 6];
-                console.log("Combinado:", combinado);
-                
-                showOutput('arrays-output');
-            }
-            
-            // 6. Objetos, Sets y Maps
-            function executeObjectsExample() {
-                console.log("=== Objetos, Sets y Maps ===");
-                
-                const obj = { 
-                    nombre: "Ana", 
-                    edad: 25,
-                    saludar: function() {
-                        return `Hola, soy ${this.nombre}`;
-                    }
-                };
-                console.log("Objeto:", obj);
-                console.log("Saludo:", obj.saludar());
-                
-                const set = new Set([1, 2, 2, 3, 3, 4]);
-                console.log("Set:", set);
-                console.log("Tamaño del Set:", set.size);
-                
-                set.add(5);
-                set.delete(1);
-                console.log("Set modificado:", set);
-                console.log("¿Contiene 3?", set.has(3));
-                
-                const map = new Map([
-                    ["nombre", "Carlos"],
-                    ["edad", 30],
-                    ["profesion", "Desarrollador"]
-                ]);
-                console.log("Map:", map);
-                console.log("Nombre:", map.get("nombre"));
-                
-                map.set("ciudad", "Madrid");
-                console.log("Claves:", [...map.keys()]);
-                console.log("Valores:", [...map.values()]);
-                
-                showOutput('objects-output');
-            }
-            
-            // 6.1 La palabra clave "this"
-            function executeThisExample() {
-                console.log("=== Métodos de objeto ===");
-                
-                const persona = {
-                    nombre: "María",
-                    edad: 28,
-                    
-                    saludar: function() {
-                        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
-                    },
-                    
-                    saludarArrow: () => {
-                        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
-                    },
-                    
-                    mostrarInfo: function() {
-                        console.log("Contexto externo this.nombre:", this.nombre);
-                        
-                        function funcionInterna() {
-                            console.log("Función interna this.nombre:", this.nombre);
-                        }
-                        
-                        const arrowInterna = () => {
-                            console.log("Arrow interna this.nombre:", this.nombre);
-                        };
-                        
-                        funcionInterna();
-                        arrowInterna();
-                    }
-                };
-                
-                console.log(persona.saludar());
-                console.log(persona.saludarArrow());
-                
-                console.log("\n=== This anidado ===");
-                persona.mostrarInfo();
-                
-                const otraPersona = {
-                    nombre: "Carlos",
-                    edad: 35
-                };
-                
-                console.log("\n=== Cambiar contexto con call ===");
-                console.log(persona.saludar.call(otraPersona));
-                
-                console.log("\n=== This en constructores ===");
-                
-                function Vehiculo(marca, modelo) {
-                    this.marca = marca;
-                    this.modelo = modelo;
-                    this.acelerar = function() {
-                        return `El ${this.marca} ${this.modelo} está acelerando`;
-                    };
-                }
-                
-                const coche = new Vehiculo("Toyota", "Corolla");
-                console.log(coche.acelerar());
-                
-                const boton = {
-                    texto: "Click me",
-                    
-                    manejarClick: function() {
-                        console.log(`Botón clickeado: ${this.texto}`);
-                    },
-                    
-                    manejarClickArrow: () => {
-                        console.log(`Botón clickeado: ${this.texto}`);
-                    }
-                };
-                
-                console.log("\n=== This en eventos simulados ===");
-                boton.manejarClick();
-                boton.manejarClickArrow();
-                
-                showOutput('this-output');
-            }
-            
-            // 8. Manejo de Errores
-            function executeErrorHandlingExample() {
-                console.log("=== Manejo de Errores ===");
-                
-                try {
-                    throw new Error("Algo salió mal");
-                } catch (err) {
-                    console.error("Error atrapado:", err.message);
-                }
-                
-                function dividir(a, b) {
-                    try {
-                        if (b === 0) {
-                            throw new Error("División por cero no permitida");
-                        }
-                        if (typeof a !== 'number' || typeof b !== 'number') {
-                            throw new TypeError("Los argumentos deben ser números");
-                        }
-                        return a / b;
-                    } catch (error) {
-                        console.error("Error en división:", error.message);
-                        return null;
-                    } finally {
-                        console.log("Operación de división finalizada");
-                    }
-                }
-                
-                console.log("Resultado 1:", dividir(10, 2));
-                console.log("Resultado 2:", dividir(10, 0));
-                console.log("Resultado 3:", dividir("10", 2));
-                
-                showOutput('error-handling-output');
-            }
-            
-            // 9. Funciones
-            function executeFunctionsExample() {
-                console.log("=== Funciones y Scope ===");
-                
-                function saludar(nombre) {
-                    return `Hola, ${nombre}`;
-                }
-                console.log("Función tradicional:", saludar("Carlos"));
-                
-                const saludarArrow = (nombre) => `Hola desde arrow, ${nombre}`;
-                console.log("Arrow function:", saludarArrow("Ana"));
-                
-                function presentar(nombre = "Anónimo", edad = 0) {
-                    return `Me llamo ${nombre} y tengo ${edad} años`;
-                }
-                console.log("Con defaults:", presentar());
-                console.log("Con parámetros:", presentar("Luis", 25));
-                
-                const persona = {
-                    nombre: "Luisa",
-                    edad: 30,
-                    saludar: function() {
-                        return `Hola, soy ${this.nombre} y tengo ${this.edad} años`;
-                    },
-                    saludarArrow: () => {
-                        return `Arrow function, this.nombre es: ${this.nombre}`;
-                    },
-                    cumplirAnios: function() {
-                        this.edad++;
-                        return `Ahora tengo ${this.edad} años`;
-                    }
-                };
-                
-                console.log("Método normal:", persona.saludar());
-                console.log("Arrow en objeto:", persona.saludarArrow());
-                console.log("Cumplir años:", persona.cumplirAnios());
-                
-                function aplicarOperacion(a, b, operacion) {
-                    return operacion(a, b);
-                }
-                
-                const sumar = (x, y) => x + y;
-                const multiplicar = (x, y) => x * y;
-                
-                console.log("Suma:", aplicarOperacion(5, 3, sumar));
-                console.log("Multiplicación:", aplicarOperacion(5, 3, multiplicar));
-                
-                showOutput('functions-output');
-            }
-            
-            // 10. Métodos de Arrays (actualizada)
-            function executeArrayMethodsExample() {
-                const nums = [1, 2, 3, 4, 5];
-                
-                console.log("=== Métodos de Arrays ===");
-                console.log("Array original:", nums);
-                
-                const dobles = nums.map(n => n * 2);
-                const cuadrados = nums.map(n => n * n);
-                console.log("Dobles:", dobles);
-                console.log("Cuadrados:", cuadrados);
-                
-                const pares = nums.filter(n => n % 2 === 0);
-                const mayoresATres = nums.filter(n => n > 3);
-                console.log("Pares:", pares);
-                console.log("Mayores a 3:", mayoresATres);
-                
-                const suma = nums.reduce((acc, n) => acc + n, 0);
-                const producto = nums.reduce((acc, n) => acc * n, 1);
-                console.log("Suma:", suma);
-                console.log("Producto:", producto);
-                
-                const resultado = nums
-                    .filter(n => n > 2)
-                    .map(n => n * n)
-                    .reduce((sum, n) => sum + n, 0);
-                console.log("Encadenado:", resultado);
-                
-                showOutput('array-methods-output');
-            }
-            
-            // 11. Promesas
-            function executePromisesExample() {
-                console.log("=== Promesas ===");
-                
-                const promesa = new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        const exito = Math.random() > 0.3;
-                        if (exito) {
-                            resolve("¡Operación exitosa!");
-                        } else {
-                            reject(new Error("Algo falló"));
-                        }
-                    }, 500);
-                });
-                
-                promesa
-                    .then(msg => {
-                        console.log("Promesa resuelta:", msg);
-                        return "Procesando resultado...";
-                    })
-                    .then(resultado => {
-                        console.log("Segundo then:", resultado);
-                    })
-                    .catch(err => {
-                        console.error("Promesa rechazada:", err.message);
-                    })
-                    .finally(() => {
-                        console.log("Promesa finalizada");
-                    });
-                
-                // Promise.all
-                const promesa1 = Promise.resolve("Primera");
-                const promesa2 = Promise.resolve("Segunda");
-                const promesa3 = new Promise(resolve => {
-                    setTimeout(() => resolve("Tercera"), 200);
-                });
-                
-                Promise.all([promesa1, promesa2, promesa3])
-                    .then(resultados => {
-                        console.log("Promise.all resultados:", resultados);
-                    });
-                
-                Promise.race([
-                    new Promise(resolve => setTimeout(() => resolve("Rápida"), 100)),
-                    new Promise(resolve => setTimeout(() => resolve("Lenta"), 300))
-                ])
-                .then(resultado => {
-                    console.log("Promise.race ganador:", resultado);
-                });
-                
-                showOutput('promises-output');
-            }
-            
-            // 7. Bucles (nueva función expandida)
-            function executeLoopsExample() {
-                console.log("=== 7. Bucles Completos ===");
-                
-                // Bucles tradicionales
-                console.log("--- Bucles Tradicionales ---");
-                for (let i = 0; i < 3; i++) {
-                    console.log("for:", i);
-                }
-                
-                let j = 0;
-                while (j < 3) {
-                    console.log("while:", j);
-                    j++;
-                }
-                
-                let k = 0;
-                do {
-                    console.log("do...while:", k);
-                    k++;
-                } while (k < 3);
-                
-                // Bucles con arrays
-                console.log("--- Bucles con Arrays ---");
-                const frutas = ["manzana", "banana", "naranja", "uva"];
-                
-                for (let i = 0; i < frutas.length; i++) {
-                    console.log(`Fruta ${i + 1}: ${frutas[i]}`);
-                }
-                
-                // forEach ejemplos
-                console.log("--- forEach ---");
-                const numeros = [10, 20, 30, 40];
-                
-                numeros.forEach(function(numero) {
-                    console.log("Número:", numero);
-                });
-                
-                numeros.forEach(numero => console.log("Arrow:", numero));
-                
-                numeros.forEach((numero, indice) => {
-                    console.log(`Posición ${indice}: ${numero}`);
-                });
-                
-                // for...of
-                console.log("--- for...of ---");
-                const colores = ["rojo", "verde", "azul"];
-                for (const color of colores) {
-                    console.log("Color:", color);
-                }
-                
-                // for...in
-                console.log("--- for...in ---");
-                const persona = { nombre: "Ana", edad: 25, ciudad: "Madrid" };
-                for (const propiedad in persona) {
-                    console.log(`${propiedad}: ${persona[propiedad]}`);
-                }
-                
-                showOutput('loops-output');
-            }
-
-            // ====================================================
-            // NAVEGACIÓN SUAVE Y SECCIÓN ACTIVA
-            // ====================================================
-            
-            // Smooth scroll para los enlaces de navegación
-            document.querySelectorAll('.nav a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Destacar la sección activa en el menú
-            function updateActiveSection() {
-                const sections = document.querySelectorAll('.section');
-                const navLinks = document.querySelectorAll('.nav a');
-                
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (window.pageYOffset >= sectionTop - 100) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateActiveSection);
-            
-            // ====================================================
-            // MENSAJE DE BIENVENIDA
-            // ====================================================
-            
-            console.log("🚀 JavaScript Reference Guide cargado correctamente!");
-            console.log("💡 Usa los botones 'Ejecutar código' para ver ejemplos interactivos");
-            console.log("🌙 Usa el botón en la esquina superior derecha para cambiar el tema");
-        </script>
-    </div>
+  <script src="script.js" defer></script>
 </body>
 </html>

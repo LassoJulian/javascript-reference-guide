@@ -1,15 +1,19 @@
 {
-  "name": "javascript",
-  "version": "1.0.0",
+  "name": "javascript-reference-guide",
+  "version": "2.0.0",
+  "description": "Interactive JavaScript reference with a deep learning high-tech design system.",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node -e \"console.log('Open index.html in your browser')\"",
+    "check": "node -e \"console.log('Static site - no automated checks configured')\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "prompt-sync": "^4.2.0"
-  }
+  "keywords": [
+    "javascript",
+    "reference",
+    "education",
+    "frontend"
+  ],
+  "author": "Julián Lasso",
+  "license": "MIT",
+  "dependencies": {}
 }
